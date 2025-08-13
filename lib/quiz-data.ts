@@ -1,0 +1,170 @@
+import type { QuizQuestion, CryptoArea } from "@/types/quiz"
+
+export const QUIZ_QUESTIONS: QuizQuestion[] = [
+  {
+    id: "experience",
+    type: "multiple-choice",
+    question: "¿Cuál es tu experiencia con las criptomonedas?",
+    description: "Esto nos ayuda a entender tu nivel de conocimiento actual",
+    options: [
+      "Principiante completo - He oído hablar de Bitcoin pero eso es todo",
+      "Algo de conocimiento - Entiendo lo básico pero no he invertido",
+      "Experiencia moderada - He comprado y mantenido algunas criptos",
+      "Experimentado - Hago trading activamente y entiendo DeFi",
+    ],
+    required: true,
+  },
+  {
+    id: "risk-tolerance",
+    type: "slider",
+    question: "¿Qué tan cómodo te sientes con posibles pérdidas?",
+    description: "Las inversiones en crypto pueden ser volátiles. Califica tu tolerancia al riesgo.",
+    min: 1,
+    max: 10,
+    step: 1,
+    required: true,
+  },
+  {
+    id: "time-commitment",
+    type: "multiple-choice",
+    question: "¿Cuánto tiempo puedes dedicar diariamente a actividades crypto?",
+    description: "Diferentes estrategias requieren diferentes inversiones de tiempo",
+    options: [
+      "Menos de 30 minutos - Quiero enfoques pasivos",
+      "30-60 minutos - Puedo revisar mercados e investigar",
+      "1-3 horas - Estoy dispuesto a gestionar posiciones activamente",
+      "3+ horas - Quiero estar profundamente involucrado en el trading",
+    ],
+    required: true,
+  },
+  {
+    id: "capital-amount",
+    type: "multiple-choice",
+    question: "¿Cuánto estás buscando invertir inicialmente?",
+    description: "Esto nos ayuda a recomendar estrategias apropiadas",
+    options: [
+      "Menos de $100 - Solo empezando",
+      "$100-$1,000 - Probando las aguas",
+      "$1,000-$10,000 - Serio pero cauteloso",
+      "Más de $10,000 - Listo para hacer movimientos significativos",
+    ],
+    required: true,
+  },
+  {
+    id: "learning-style",
+    type: "multiple-choice",
+    question: "¿Cómo prefieres aprender cosas nuevas?",
+    description: "Esto nos ayuda a emparejarte con el nivel de complejidad correcto",
+    options: [
+      "Simple y directo - Solo dime qué hacer",
+      "Guías paso a paso - Me gustan las instrucciones detalladas",
+      "Investigar y experimentar - Disfruto descubrir las cosas",
+      "Comunidad y discusión - Aprendo mejor de otros",
+    ],
+    required: true,
+  },
+  {
+    id: "goals",
+    type: "multiple-choice",
+    question: "¿Cuál es tu objetivo principal con las criptomonedas?",
+    description: "Entender tus objetivos nos ayuda a personalizar las recomendaciones",
+    options: [
+      "Construcción de riqueza a largo plazo - Configurar y olvidar",
+      "Generar ingresos pasivos - Ganar mientras mantengo",
+      "Ganancias de trading activo - Ganar dinero con movimientos de precios",
+      "Aprender y explorar - Entender la tecnología",
+    ],
+    required: true,
+  },
+  {
+    id: "tech-comfort",
+    type: "rating",
+    question: "¿Qué tan cómodo te sientes con la tecnología?",
+    description: "Califica tu nivel de comodidad con apps, wallets y nuevas plataformas",
+    min: 1,
+    max: 5,
+    required: true,
+  },
+  {
+    id: "market-volatility",
+    type: "multiple-choice",
+    question: "¿Cómo reaccionarías a una caída del 50% en tu inversión?",
+    description: "Los mercados crypto pueden ser extremadamente volátiles",
+    options: [
+      "Entrar en pánico y vender inmediatamente",
+      "Sentirme estresado pero mantener",
+      "Mantener la calma y esperar",
+      "Comprar más al precio más bajo",
+    ],
+    required: true,
+  },
+]
+
+export const CRYPTO_AREAS: Record<string, CryptoArea> = {
+  spotHolding: {
+    id: "spotHolding",
+    name: "Spot Holding (HODLing)",
+    description: "Comprar y mantener criptomonedas principales para crecimiento a largo plazo",
+    riskLevel: "low",
+    timeCommitment: "minimal",
+    capitalRequirement: "low",
+    tags: ["principiante", "largo-plazo", "pasivo", "bitcoin", "ethereum"],
+    detailedDescription:
+      "Perfecto para principiantes que quieren invertir en criptomonedas sin complejidad. Simplemente compra Bitcoin, Ethereum u otras monedas principales y manténlas a largo plazo. Esta estrategia requiere tiempo y conocimiento técnico mínimo mientras ofrece exposición al potencial de crecimiento crypto.",
+  },
+  airdrops: {
+    id: "airdrops",
+    name: "Airdrop Farming",
+    description: "Ganar tokens gratis usando nuevos protocolos y plataformas",
+    riskLevel: "low",
+    timeCommitment: "moderate",
+    capitalRequirement: "low",
+    tags: ["tokens-gratis", "early-adopter", "investigación", "defi", "proyectos-nuevos"],
+    detailedDescription:
+      "Obtén criptomonedas gratis siendo un usuario temprano de nuevos protocolos. Esto implica probar nuevas plataformas, hacer transacciones y participar en testnets. Aunque requiere tiempo, puede ser muy gratificante con riesgo financiero mínimo.",
+  },
+  defi: {
+    id: "defi",
+    name: "DeFi Yield Farming",
+    description: "Ganar rendimiento proporcionando liquidez y staking en protocolos DeFi",
+    riskLevel: "medium",
+    timeCommitment: "moderate",
+    capitalRequirement: "medium",
+    tags: ["rendimiento", "staking", "liquidez", "ingresos-pasivos", "smart-contracts"],
+    detailedDescription:
+      "Genera ingresos pasivos prestando tus criptos, proporcionando liquidez a exchanges, o haciendo staking de tokens. Ofrece rendimientos atractivos pero requiere entender los riesgos de smart contracts y pérdida impermanente.",
+  },
+  futuresTrading: {
+    id: "futuresTrading",
+    name: "Futures Trading",
+    description: "Operar derivados de criptomonedas con apalancamiento para ganancias amplificadas",
+    riskLevel: "high",
+    timeCommitment: "high",
+    capitalRequirement: "medium",
+    tags: ["apalancamiento", "derivados", "trading-activo", "análisis-técnico", "alto-riesgo"],
+    detailedDescription:
+      "Estrategia de trading avanzada usando apalancamiento para amplificar ganancias potenciales (y pérdidas). Requiere conocimiento profundo del mercado, habilidades de análisis técnico y monitoreo activo. Alto riesgo pero potencialmente alta recompensa para traders experimentados.",
+  },
+  nfts: {
+    id: "nfts",
+    name: "Trading y Creación de NFTs",
+    description: "Operar coleccionables digitales y crear proyectos NFT",
+    riskLevel: "high",
+    timeCommitment: "high",
+    capitalRequirement: "medium",
+    tags: ["coleccionables", "arte", "gaming", "comunidad", "creativo"],
+    detailedDescription:
+      "Participa en el ecosistema NFT operando coleccionables digitales, creando tus propios NFTs, o invirtiendo en proyectos NFT. Altamente especulativo pero ofrece oportunidades creativas y dirigidas por la comunidad.",
+  },
+  memeCoins: {
+    id: "memeCoins",
+    name: "Trading de Meme Coins",
+    description: "Operar criptomonedas virales y dirigidas por la comunidad",
+    riskLevel: "high",
+    timeCommitment: "high",
+    capitalRequirement: "low",
+    tags: ["viral", "comunidad", "alta-volatilidad", "redes-sociales", "especulativo"],
+    detailedDescription:
+      "Opera criptomonedas que ganan popularidad a través de redes sociales y hype comunitario. Extremadamente volátil y especulativo, pero puede ofrecer ganancias masivas para aquellos que capturan tendencias temprano.",
+  },
+}
