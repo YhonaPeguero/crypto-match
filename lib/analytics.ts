@@ -1,4 +1,4 @@
-import { supabase } from "./supabase"
+import { supabase, isSupabaseConfigured } from "./supabase"
 import { getSessionId } from "./storage"
 import type { AnalyticsEvent, AnalyticsEventType } from "@/types/analytics"
 
@@ -24,12 +24,14 @@ export async function trackEvent(eventType: AnalyticsEventType, eventData?: Reco
       timestamp: new Date(),
     }
 
-    // Store in Supabase
-    await supabase.from("analytics_events").insert({
-      session_id: event.sessionId,
-      event_type: event.eventType,
-      event_data: event.eventData,
-    })
+    // Guardar en Supabase si está configurado
+    if (isSupabaseConfigured && supabase) {
+      await supabase.from("analytics_events").insert({
+        session_id: event.sessionId,
+        event_type: event.eventType,
+        event_data: event.eventData,
+      })
+    }
 
     // Optional: Also send to Google Analytics if available
     if (typeof window !== "undefined" && (window as any).gtag) {

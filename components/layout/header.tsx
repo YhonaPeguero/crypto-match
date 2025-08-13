@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Moon, Sun } from "lucide-react"
+import Image from "next/image"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import Link from "next/link"
@@ -24,9 +25,7 @@ export function Header() {
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">C</span>
-              </div>
+              <Image src="/logo.png" alt="CryptoMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
               <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
                 CryptoMatch
               </span>
@@ -39,13 +38,11 @@ export function Header() {
   }
 
   return (
-    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-colors duration-300">
+    <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-colors duration-300">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-lg">C</span>
-            </div>
+            <Image src="/logo.png" alt="CryptoMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
             <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
               CryptoMatch
             </span>

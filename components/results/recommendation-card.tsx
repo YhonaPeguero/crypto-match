@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { ExternalLink, Clock, DollarSign } from "lucide-react"
 import type { QuizResult } from "@/types/quiz"
+import { Disclaimer } from "@/components/ui/disclaimer"
 
 interface RecommendationCardProps {
   result: QuizResult
@@ -163,6 +164,9 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
           </span>
           <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform flex-shrink-0" />
         </Button>
+        <div className="mt-2">
+          <Disclaimer variant="subtle" />
+        </div>
       </CardContent>
     </Card>
   )

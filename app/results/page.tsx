@@ -13,6 +13,7 @@ import { trackEvent, ANALYTICS_EVENTS } from "@/lib/analytics"
 import { saveQuizResults } from "@/lib/quiz-operations"
 import { getSessionId, clearQuizSession } from "@/lib/storage"
 import type { QuizResult } from "@/types/quiz"
+import { Disclaimer } from "@/components/ui/disclaimer"
 
 export default function ResultsPage() {
   const router = useRouter()
@@ -175,6 +176,9 @@ export default function ResultsPage() {
                   Aprender Más Sobre {primaryResult?.area.name}
                 </Button>
                 <Button variant="outline">Explorar Todas las Estrategias</Button>
+              </div>
+              <div className="flex justify-center">
+                <Disclaimer variant="subtle" />
               </div>
             </CardContent>
           </Card>

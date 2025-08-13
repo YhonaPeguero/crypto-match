@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "CryptoMatch",
     images: [
       {
-        url: "/og-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
     description:
       "Descubre qué enfoque de criptomonedas se adapta a tus objetivos, tolerancia al riesgo y nivel de experiencia.",
-    images: ["/og-image.png"],
+    images: ["/logo.png"],
     creator: "@cryptomatch",
   },
   robots: {
@@ -86,6 +86,9 @@ html {
   --font-mono: ${GeistMono.variable};
 }
         `}</style>
+        <link rel="icon" href="/logo.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="shortcut icon" href="/logo.png" />
       </head>
       <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <ErrorBoundary>

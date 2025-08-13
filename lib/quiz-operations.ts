@@ -1,4 +1,4 @@
-import { supabase } from "./supabase"
+import { supabase, isSupabaseConfigured } from "./supabase"
 import type { QuizResponse, QuizResult } from "@/types/quiz"
 
 export async function saveQuizResults(
@@ -7,6 +7,11 @@ export async function saveQuizResults(
   recommendations: QuizResult[],
 ): Promise<void> {
   try {
+    if (!isSupabaseConfigured || !supabase) {
+      console.warn("Supabase no está configurado. Omitiendo guardado de resultados del quiz.")
+      return
+    }
+
     const { error } = await supabase.from("quiz_responses").insert({
       session_id: sessionId,
       responses: responses,
@@ -32,10 +37,14 @@ export async function getQuizStats(): Promise<{
   popularAreas: Array<{ area: string; count: number }>
 }> {
   try {
-    // Get total responses
+    if (!isSupabaseConfigured || !supabase) {
+      return { totalResponses: 0, popularAreas: [] }
+    }
+
+    // Obtener total de respuestas
     const { count: totalResponses } = await supabase.from("quiz_responses").select("*", { count: "exact", head: true })
 
-    // Get popular areas (this would need more complex aggregation in a real app)
+    // Áreas populares (en un caso real requeriría agregaciones más complejas)
     const { data: responses } = await supabase.from("quiz_responses").select("recommendations").limit(100)
 
     const areaCounts: Record<string, number> = {}

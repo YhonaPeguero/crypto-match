@@ -15,13 +15,13 @@ export function RatingScale({ min, max, value, onSelect }: RatingScaleProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-2">
         {ratings.map((rating) => (
           <Button
             key={rating}
             variant={value === rating ? "default" : "outline"}
             size="lg"
-            className="h-16 w-16 rounded-full p-0 transition-all hover:scale-110"
+            className="h-14 w-14 sm:h-16 sm:w-16 rounded-full p-0 transition-all hover:scale-110"
             onClick={() => onSelect(rating)}
           >
             <div className="flex flex-col items-center gap-1">
