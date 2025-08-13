@@ -93,7 +93,7 @@ html {
       <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <ErrorBoundary>
           <Suspense fallback={null}>
-            <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="cryptomatch-theme">
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="cryptomatch-theme">
               <AnalyticsProvider>
                 <div className="flex flex-col min-h-screen">
                   <div className="flex-1">{children}</div>
