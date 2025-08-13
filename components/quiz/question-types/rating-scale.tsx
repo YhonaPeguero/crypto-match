@@ -21,7 +21,7 @@ export function RatingScale({ min, max, value, onSelect }: RatingScaleProps) {
             key={rating}
             variant={value === rating ? "default" : "outline"}
             size="lg"
-            className="h-14 w-14 sm:h-16 sm:w-16 rounded-full p-0 transition-all hover:scale-110"
+            className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full p-0 transition-all hover:scale-105"
             onClick={() => onSelect(rating)}
           >
             <div className="flex flex-col items-center gap-1">
@@ -30,7 +30,7 @@ export function RatingScale({ min, max, value, onSelect }: RatingScaleProps) {
                   value === rating ? "fill-current text-primary-foreground" : "text-muted-foreground"
                 }`}
               />
-              <span className="text-xs font-semibold">{rating}</span>
+              <span className="text-[10px] sm:text-xs font-semibold">{rating}</span>
             </div>
           </Button>
         ))}

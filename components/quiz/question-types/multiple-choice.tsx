@@ -16,7 +16,7 @@ export function MultipleChoice({ options, value, onSelect }: MultipleChoiceProps
         <Button
           key={index}
           variant={value === option ? "default" : "outline"}
-          className="h-auto p-4 text-left justify-start relative transition-all hover:scale-[1.02] w-full"
+          className="h-auto p-4 text-left justify-start relative transition-all hover:scale-[1.01] w-full whitespace-normal break-words"
           onClick={() => onSelect(option)}
         >
           <div className="flex items-start gap-3 w-full">
@@ -27,7 +27,7 @@ export function MultipleChoice({ options, value, onSelect }: MultipleChoiceProps
             >
               {value === option && <Check className="h-3 w-3 text-primary-foreground" />}
             </div>
-            <span className="text-sm leading-relaxed">{option}</span>
+            <span className="text-sm leading-relaxed break-words">{option}</span>
           </div>
         </Button>
       ))}

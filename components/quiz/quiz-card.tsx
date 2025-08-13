@@ -54,7 +54,7 @@ export function QuizCard({
 
   return (
     <Card className="w-full max-w-3xl mx-auto shadow-xl border-0 bg-card/50 backdrop-blur">
-      <CardHeader className="text-center space-y-4 pb-8">
+      <CardHeader className="text-center space-y-4 pb-6 sm:pb-8">
         <CardTitle className="text-2xl md:text-3xl font-bold leading-tight" id="question-title">
           {question.question}
         </CardTitle>
@@ -66,7 +66,7 @@ export function QuizCard({
       </CardHeader>
 
       <CardContent
-        className="space-y-8 px-8 pb-8"
+        className="space-y-6 px-4 sm:px-8 pb-6"
         role="group"
         aria-labelledby="question-title"
         aria-describedby="question-description"
@@ -74,7 +74,7 @@ export function QuizCard({
         {renderQuestionInput()}
       </CardContent>
 
-      <CardFooter className="flex justify-between items-center p-8 pt-0">
+      <CardFooter className="flex justify-between items-center px-4 sm:px-8 pb-6 pt-0">
         <Button
           variant="outline"
           onClick={onPrevious}

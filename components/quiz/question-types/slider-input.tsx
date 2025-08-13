@@ -15,7 +15,7 @@ export function SliderInput({ min, max, step, value, onValueChange }: SliderInpu
 
   return (
     <div className="space-y-6">
-      <div className="px-4">
+      <div className="px-2 sm:px-4">
         <Slider
           value={[currentValue]}
           onValueChange={([val]) => onValueChange(val)}
