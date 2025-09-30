@@ -1,5 +1,5 @@
 {
-  "miniapp": {
+  "frame": {
     "version": "1",
     "name": "CryptoMatch",
     "homeUrl": "https://cryptomatch.vercel.app",
