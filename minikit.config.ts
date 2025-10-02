@@ -12,12 +12,12 @@ const IMAGES_CDN = "https://i.ibb.co";
  */
 export const minikitConfig = {
   accountAssociation: {
-    header: "",
-    payload: "",
-    signature: "",
+    header: "eyJmaWQiOjExMTQ4NjIsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhBOThhMTU0OGQxQzg5RWVjNGI4RTZmZjUxOTgyZEJjYTM3YzU1OUEyIn0",
+    payload: "eyJkb21haW4iOiJjcnlwdG9tYXRjaC52ZXJjZWwuYXBwIn0",
+    signature: "MHgwZGZmYTA5OWExZDg4NzRkYWZhOWYxYjViN2FiN2RiZjJkY2M1NzdjOTVkZWFjZmY4N2M2MzBhOGRhM2NlM2Q4MjQ4NzQwYzU5MTA4MzcxOTYxYjZjZjBlNWZhZWIzNTQwMGUxNjE3MWIzOTY1NWVmN2U1Yzc5ZDhkNTI5YmNjNjFi"
   },
   baseBuilder: {
-    allowedAddresses: [],
+    allowedAddresses: [0xDf8303e583C4c18D6a1159D111cc51A16031257f],
   },
   miniapp: {
     version: "1",
