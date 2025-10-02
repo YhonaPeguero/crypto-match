@@ -101,7 +101,7 @@ export default function QuizPage() {
     }
   }
 
-  const canGoNext = currentResponse && validateResponse(currentQuestion?.id, currentResponse.value)
+  const canGoNext = Boolean(currentResponse && validateResponse(currentQuestion?.id, currentResponse.value))
   const canGoPrevious = currentStep > 0
 
   if (isLoading) {

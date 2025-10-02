@@ -7,68 +7,87 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { Footer } from "@/components/layout/footer"
+import { MiniAppProvider } from "@/components/mini-app-provider"
 import { Suspense } from "react"
 
-export const metadata: Metadata = {
-  title: {
-    default: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
-    template: "%s | CryptoMatch",
-  },
-  description:
-    "Descubre qué enfoque de criptomonedas se adapta a tus objetivos, tolerancia al riesgo y nivel de experiencia. Toma nuestro quiz personalizado para obtener recomendaciones adaptadas para Bitcoin, DeFi, trading y más.",
-  keywords: ["criptomonedas", "crypto quiz", "bitcoin", "ethereum", "defi", "trading", "inversión", "blockchain"],
-  authors: [{ name: "Equipo CryptoMatch" }],
-  creator: "CryptoMatch",
-  publisher: "CryptoMatch",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://cryptomatch.vercel.app"),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    type: "website",
-    locale: "es_ES",
-    url: "https://cryptomatch.vercel.app",
-    title: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: {
+      default: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
+      template: "%s | CryptoMatch",
+    },
     description:
-      "Descubre qué enfoque de criptomonedas se adapta a tus objetivos, tolerancia al riesgo y nivel de experiencia.",
-    siteName: "CryptoMatch",
-    images: [
-      {
-        url: "/logo.png",
-        width: 1200,
-        height: 630,
-        alt: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
-    description:
-      "Descubre qué enfoque de criptomonedas se adapta a tus objetivos, tolerancia al riesgo y nivel de experiencia.",
-    images: ["/logo.png"],
-    creator: "@cryptomatch",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+      "Descubre qué enfoque de criptomonedas se adapta a tus objetivos, tolerancia al riesgo y nivel de experiencia. Toma nuestro quiz personalizado para obtener recomendaciones adaptadas para Bitcoin, DeFi, trading y más.",
+    keywords: ["criptomonedas", "crypto quiz", "bitcoin", "ethereum", "defi", "trading", "inversión", "blockchain"],
+    authors: [{ name: "Equipo CryptoMatch" }],
+    creator: "CryptoMatch",
+    publisher: "CryptoMatch",
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    metadataBase: new URL("https://cryptomatch.vercel.app"),
+    alternates: {
+      canonical: "/",
+    },
+    openGraph: {
+      type: "website",
+      locale: "es_ES",
+      url: "https://cryptomatch.vercel.app",
+      title: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
+      description:
+        "Descubre qué enfoque de criptomonedas se adapta a tus objetivos, tolerancia al riesgo y nivel de experiencia.",
+      siteName: "CryptoMatch",
+      images: [
+        {
+          url: "https://i.ibb.co/8Dq1NPv6/preview-social.jpg",
+          width: 1200,
+          height: 630,
+          alt: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "CryptoMatch - Encuentra Tu Estrategia Crypto Perfecta",
+      description:
+        "Descubre qué enfoque de criptomonedas se adapta a tus objetivos, tolerancia al riesgo y nivel de experiencia.",
+      images: ["https://i.ibb.co/8Dq1NPv6/preview-social.jpg"],
+      creator: "@cryptomatch",
+    },
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  verification: {
-    google: "your-google-verification-code",
-  },
-    generator: 'v0.app'
+    verification: {
+      google: "your-google-verification-code",
+    },
+    generator: 'v0.app',
+    other: {
+      'fc:miniapp': JSON.stringify({
+        version: 'next',
+        imageUrl: 'https://i.ibb.co/8Dq1NPv6/preview-social.jpg',
+        button: {
+          title: 'Comenzar Quiz',
+          action: {
+            type: 'launch_miniapp',
+            name: 'CryptoMatch',
+            url: 'https://cryptomatch.vercel.app',
+            splashImageUrl: 'https://i.ibb.co/ds7x6csQ/logo.png',
+            splashBackgroundColor: '#E6007A',
+          },
+        },
+      }),
+    },
+  };
 }
 
 export default function RootLayout({
@@ -94,12 +113,14 @@ html {
         <ErrorBoundary>
           <Suspense fallback={null}>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="cryptomatch-theme">
-              <AnalyticsProvider>
-                <div className="flex flex-col min-h-screen">
-                  <div className="flex-1">{children}</div>
-                  <Footer />
-                </div>
-              </AnalyticsProvider>
+              <MiniAppProvider>
+                <AnalyticsProvider>
+                  <div className="flex flex-col min-h-screen">
+                    <div className="flex-1">{children}</div>
+                    <Footer />
+                  </div>
+                </AnalyticsProvider>
+              </MiniAppProvider>
             </ThemeProvider>
           </Suspense>
         </ErrorBoundary>
