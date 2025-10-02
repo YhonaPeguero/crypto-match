@@ -22,7 +22,7 @@ export const minikitConfig = {
   miniapp: {
     version: "1",
     name: "CryptoMatch",
-    subtitle: "Tu compañero ideal en criptomonedas",
+    subtitle: "Tu compañero en criptomonedas",
     description: "Descubre en 2 minutos tu estrategia cripto ideal con un quiz personalizado. Gratis, rapido y sin registro.",
     screenshotUrls: [`${IMAGES_CDN}/m5y6qW24/screenshot-app.jpg`],
     iconUrl: `${IMAGES_CDN}/ds7x6csQ/logo.png`,
