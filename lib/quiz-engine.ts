@@ -6,7 +6,143 @@ interface AreaScore {
   score: number
 }
 
+export type UserLevel = 'principiante' | 'intermedio' | 'avanzado'
+
+export interface TimeRange {
+  principiante: string
+  intermedio: string
+  avanzado: string
+}
+
+export interface CapitalRange {
+  principiante: string
+  intermedio: string
+  avanzado: string
+}
+
+export const TIME_RANGES: Record<string, TimeRange> = {
+  spotHolding: {
+    principiante: '1–2 horas al mes',
+    intermedio: '1–2 horas a la semana',
+    avanzado: '10–15 min al día + 2–3 horas al mes'
+  },
+  airdrops: {
+    principiante: '2–4 horas a la semana',
+    intermedio: '5–10 horas a la semana',
+    avanzado: '2–4 horas al día'
+  },
+  defi: {
+    principiante: '2–3 horas a la semana',
+    intermedio: '5–7 horas a la semana',
+    avanzado: '1–2 horas al día'
+  },
+  futuresTrading: {
+    principiante: '1–2 horas al día',
+    intermedio: '3–5 horas al día',
+    avanzado: '5+ horas al día'
+  },
+  memeCoins: {
+    principiante: '30–60 min al día',
+    intermedio: '1–3 horas al día',
+    avanzado: '3+ horas al día'
+  },
+  nfts: {
+    principiante: '2–4 horas a la semana',
+    intermedio: '1–2 horas al día',
+    avanzado: '3+ horas al día'
+  }
+}
+
+export const CAPITAL_RANGES: Record<string, CapitalRange> = {
+  spotHolding: {
+    principiante: '$100–$500',
+    intermedio: '$1,000–$5,000',
+    avanzado: '$10,000+'
+  },
+  airdrops: {
+    principiante: '$50–$200',
+    intermedio: '$500–$1,000',
+    avanzado: '$2,000+'
+  },
+  defi: {
+    principiante: '$200–$500',
+    intermedio: '$1,000–$5,000',
+    avanzado: '$10,000+'
+  },
+  futuresTrading: {
+    principiante: '$200–$1,000',
+    intermedio: '$1,000–$10,000',
+    avanzado: '$10,000+'
+  },
+  memeCoins: {
+    principiante: '$50–$300',
+    intermedio: '$300–$2,000',
+    avanzado: '$2,000+'
+  },
+  nfts: {
+    principiante: '$50–$500',
+    intermedio: '$500–$3,000',
+    avanzado: '$3,000+'
+  }
+}
+
+export function determineUserLevel(responses: QuizResponse[]): UserLevel {
+  const experienceAnswers = responses.find(r => r.questionId === 'experience-level')
+  const capitalAnswers = responses.find(r => r.questionId === 'capital-amount')
+  const techAnswers = responses.find(r => r.questionId === 'tech-comfort')
+  
+  let score = 0
+  
+  // Experiencia
+  if (experienceAnswers?.value === 'Complete beginner - New to crypto') {
+    score += 0
+  } else if (experienceAnswers?.value === 'Basic knowledge - Understand wallet basics') {
+    score += 2
+  } else if (experienceAnswers?.value === 'Intermediate - Have made some trades') {
+    score += 4
+  } else if (experienceAnswers?.value === 'Advanced - Comfortable with DeFi/staking') {
+    score += 6
+  } else if (experienceAnswers?.value === 'Expert - Actively farming/staking/trading') {
+    score += 8
+  }
+  
+  // Capital
+  if (capitalAnswers?.value === 'Under $100 - Just getting started') {
+    score += 0
+  } else if (capitalAnswers?.value === '$100-$1,000 - Testing the waters') {
+    score += 1
+  } else if (capitalAnswers?.value === '$1,000-$10,000 - Serious but cautious') {
+    score += 2
+  } else if (capitalAnswers?.value === 'Over $10,000 - Ready to make significant moves') {
+    score += 3
+  }
+  
+  // Comfort técnico
+  const techValue = typeof techAnswers?.value === 'number' ? techAnswers.value : Number(techAnswers?.value)
+  if (techValue <= 2) {
+    score += 0
+  } else if (techValue <= 3) {
+    score += 1
+  } else if (techValue <= 4) {
+    score += 2
+  } else {
+    score += 3
+  }
+  
+  // Determinar nivel basado en puntuación total (0-14)
+  if (score <= 4) {
+    return 'principiante'
+  } else if (score <= 10) {
+    return 'intermedio'
+  } else {
+    return 'avanzado'
+  }
+}
+
 export function calculateRecommendations(responses: QuizResponse[]): QuizResult[] {
+  // Determinar nivel del usuario
+  const userLevel = determineUserLevel(responses)
+  
   // Initialize scores for each crypto area
   const scores: Record<string, number> = {
     spotHolding: 0,
@@ -206,6 +342,7 @@ export function calculateRecommendations(responses: QuizResponse[]): QuizResult[
       area: CRYPTO_AREAS[result.area],
       score: Math.round(normalizedScore),
       isPrimary: index === 0,
+      userLevel,
     }
   })
 }

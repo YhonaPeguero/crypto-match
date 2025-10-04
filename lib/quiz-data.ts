@@ -103,7 +103,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 export const CRYPTO_AREAS: Record<string, CryptoArea> = {
   spotHolding: {
     id: "spotHolding",
-    name: "Spot Holding (HODLing)",
+    name: "Spot Holding",
     description: "Comprar y mantener criptomonedas principales para crecimiento a largo plazo",
     riskLevel: "low",
     timeCommitment: "minimal",

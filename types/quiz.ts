@@ -27,10 +27,13 @@ export interface CryptoArea {
   detailedDescription: string
 }
 
+export type UserLevel = 'principiante' | 'intermedio' | 'avanzado'
+
 export interface QuizResult {
   area: CryptoArea
   score: number
   isPrimary: boolean
+  userLevel: UserLevel
 }
 
 export interface QuizSession {

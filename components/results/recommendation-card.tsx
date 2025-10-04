@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { ExternalLink, Clock, DollarSign } from "lucide-react"
 import type { QuizResult } from "@/types/quiz"
 import { Disclaimer } from "@/components/ui/disclaimer"
+import { TIME_RANGES, CAPITAL_RANGES } from "@/lib/quiz-engine"
 
 interface RecommendationCardProps {
   result: QuizResult
@@ -14,15 +15,15 @@ interface RecommendationCardProps {
 }
 
 export function RecommendationCard({ result, rank }: RecommendationCardProps) {
-  const { area, score, isPrimary } = result
+  const { area, score, isPrimary, userLevel } = result
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case "bajo":
+      case "low":
         return "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
-      case "medio":
+      case "medium":
         return "bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800"
-      case "alto":
+      case "high":
         return "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800"
       default:
         return "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/20 dark:text-gray-400 dark:border-gray-800"
@@ -31,11 +32,11 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
 
   const getCapitalColor = (capital: string) => {
     switch (capital) {
-      case "bajo":
+      case "low":
         return "text-green-600 dark:text-green-400"
-      case "medio":
+      case "medium":
         return "text-yellow-600 dark:text-yellow-400"
-      case "alto":
+      case "high":
         return "text-red-600 dark:text-red-400"
       default:
         return "text-gray-600 dark:text-gray-400"
@@ -44,11 +45,11 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
 
   const getTimeColor = (time: string) => {
     switch (time) {
-      case "mínimo":
+      case "minimal":
         return "text-green-600 dark:text-green-400"
-      case "moderado":
+      case "moderate":
         return "text-yellow-600 dark:text-yellow-400"
-      case "alto":
+      case "high":
         return "text-red-600 dark:text-red-400"
       default:
         return "text-gray-600 dark:text-gray-400"
@@ -100,9 +101,21 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
             </Badge>
           </div>
           <Badge className={`${getRiskColor(area.riskLevel)} flex-shrink-0 text-xs`}>
-            {area.riskLevel === "bajo" && "Riesgo bajo"}
-            {area.riskLevel === "medio" && "Riesgo medio"}
-            {area.riskLevel === "alto" && "Riesgo alto"}
+            {area.riskLevel === "low" && "Riesgo bajo"}
+            {area.riskLevel === "medium" && "Riesgo medio"}
+            {area.riskLevel === "high" && "Riesgo alto"}
+          </Badge>
+          <Badge 
+            variant="outline" 
+            className={`text-xs font-medium ${
+              userLevel === 'principiante' ? 'border-green-500 text-green-700 bg-green-50 dark:border-green-400 dark:text-green-300 dark:bg-green-950/20' :
+              userLevel === 'intermedio' ? 'border-yellow-500 text-yellow-700 bg-yellow-50 dark:border-yellow-400 dark:text-yellow-300 dark:bg-yellow-950/20' :
+              'border-purple-500 text-purple-700 bg-purple-50 dark:border-purple-400 dark:text-purple-300 dark:bg-purple-950/20'
+            }`}
+          >
+            {userLevel === 'principiante' && 'Principiante'}
+            {userLevel === 'intermedio' && 'Intermedio'}
+            {userLevel === 'avanzado' && 'Avanzado'}
           </Badge>
         </div>
 
@@ -125,9 +138,10 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
               <span className="text-sm font-medium">Tiempo Requerido</span>
             </div>
             <p className={`text-sm font-semibold ${getTimeColor(area.timeCommitment)}`}>
-              {area.timeCommitment === "mínimo" && "< 30 min/día"}
-              {area.timeCommitment === "moderado" && "1-2 horas/día"}
-              {area.timeCommitment === "alto" && "3+ horas/día"}
+              {TIME_RANGES[area.id]?.[userLevel] || 
+                (area.timeCommitment === "minimal" && "Mínimo") ||
+                (area.timeCommitment === "moderate" && "Moderado") ||
+                "Alto"}
             </p>
           </div>
 
@@ -137,9 +151,10 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
               <span className="text-sm font-medium">Capital</span>
             </div>
             <p className={`text-sm font-semibold ${getCapitalColor(area.capitalRequirement)}`}>
-              {area.capitalRequirement === "bajo" && "< $500"}
-              {area.capitalRequirement === "medio" && "$500-$5K"}
-              {area.capitalRequirement === "alto" && "$5K+"}
+              {CAPITAL_RANGES[area.id]?.[userLevel] || 
+                (area.capitalRequirement === "low" && "< $500") ||
+                (area.capitalRequirement === "medium" && "$500-$5K") ||
+                "$5K+"}
             </p>
           </div>
         </div>
