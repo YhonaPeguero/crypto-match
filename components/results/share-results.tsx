@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Share2, Twitter, Facebook, Link2, Download } from "lucide-react"
+import { Share2, Link2, Download } from "lucide-react"
 import { useState } from "react"
 import type { QuizResult } from "@/types/quiz"
 
@@ -15,26 +15,38 @@ export function ShareResults({ results }: ShareResultsProps) {
 
   const primaryResult = results.find((r) => r.isPrimary)
   const shareText = `¡Acabo de descubrir mi estrategia crypto perfecta: ${primaryResult?.area.name}! Toma el quiz para encontrar la tuya.`
-  const shareUrl = typeof window !== "undefined" ? window.location.origin : ""
+  const shareUrl = typeof window !== "undefined" ? window.location.href : ""
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl)
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(shareUrl)
+      } else {
+        const textArea = document.createElement("textarea")
+        textArea.value = shareUrl
+        textArea.style.position = "fixed"
+        textArea.style.left = "-9999px"
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+        document.execCommand("copy")
+        document.body.removeChild(textArea)
+      }
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      setTimeout(() => setCopied(false), 2200)
     } catch (error) {
       console.error("Error al copiar enlace:", error)
     }
   }
 
   const handleTwitterShare = () => {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}&hashtags=CryptoMatch,Crypto,Bitcoin`
-    window.open(twitterUrl, "_blank")
+    const xUrl = `https://x.com/intent/post?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}&hashtags=CryptoMatch,Crypto,Bitcoin`
+    window.open(xUrl, "_blank")
   }
 
-  const handleFacebookShare = () => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`
-    window.open(facebookUrl, "_blank")
+  const handleFarcasterShare = () => {
+    const farcasterUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`
+    window.open(farcasterUrl, "_blank")
   }
 
   const handleDownloadResults = () => {
@@ -77,29 +89,31 @@ export function ShareResults({ results }: ShareResultsProps) {
             variant="outline"
             size="sm"
             onClick={handleTwitterShare}
-            className="flex items-center gap-2 bg-transparent hover:bg-blue-50 dark:hover:bg-blue-950/20 text-xs sm:text-sm"
+            className="flex items-center gap-2 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-neutral-100"
           >
-            <Twitter className="h-4 w-4" />
-            <span className="hidden sm:inline">Twitter</span>
-            <span className="sm:hidden">X</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
+              <path d="M18.244 2H21.5l-7.52 8.59L23.5 22h-7.31l-5.72-6.61L3.5 22H.244l8.07-9.22L.5 2h7.31l5.18 5.99L18.244 2Zm-1.28 18h2.02L7.12 4h-2.02l11.864 16Z"/>
+            </svg>
+            <span className="hidden sm:inline"></span>
+            <span className="sm:hidden"></span>
           </Button>
 
           <Button
             variant="outline"
             size="sm"
-            onClick={handleFacebookShare}
-            className="flex items-center gap-2 bg-transparent hover:bg-blue-50 dark:hover:bg-blue-950/20 text-xs sm:text-sm"
+            onClick={handleFarcasterShare}
+            className="flex items-center gap-2 bg-transparent hover:bg-[#855DCD]/10 text-xs sm:text-sm text-[#855DCD]"
           >
-            <Facebook className="h-4 w-4" />
-            <span className="hidden sm:inline">Facebook</span>
-            <span className="sm:hidden">FB</span>
+            <img src="https://warpcast.com/favicon.ico" alt="Farcaster" className="h-4 w-4 rounded-sm" />
+            <span className="hidden sm:inline">Farcaster</span>
+            <span className="sm:hidden">FC</span>
           </Button>
 
           <Button
             variant="outline"
             size="sm"
             onClick={handleCopyLink}
-            className="flex items-center gap-2 bg-transparent hover:bg-green-50 dark:hover:bg-green-950/20 text-xs sm:text-sm"
+            className="flex items-center gap-2 bg-transparent hover:bg-green-50 dark:hover:bg-green-950/20 text-xs sm:text-sm text-green-600"
           >
             <Link2 className="h-4 w-4" />
             {copied ? "¡Copiado!" : "Copiar"}

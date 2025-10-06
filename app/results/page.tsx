@@ -172,10 +172,24 @@ export default function ResultsPage() {
                 hacer tu propia investigación y nunca invertir más de lo que puedes permitirte perder.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700">
-                  Aprender Más Sobre {primaryResult?.area.name}
-                </Button>
-                <Button variant="outline">Explorar Todas las Estrategias</Button>
+                <Link
+                  href={
+                    primaryResult?.area.id === "airdrops"
+                      ? "/estrategias#airdrop-farming"
+                      : primaryResult?.area.id === "spotHolding"
+                      ? "/estrategias#spot-holding"
+                      : primaryResult?.area.id === "defi"
+                      ? "/estrategias#defi-yield-farming"
+                      : "/estrategias"
+                  }
+                >
+                  <Button className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700">
+                    Aprender Más Sobre {primaryResult?.area.name}
+                  </Button>
+                </Link>
+                <Link href="/estrategias">
+                  <Button variant="outline">Explorar Todas las Estrategias</Button>
+                </Link>
               </div>
               <div className="flex justify-center">
                 <Disclaimer variant="subtle" />

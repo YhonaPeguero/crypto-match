@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Progress } from "@/components/ui/progress"
 import { ExternalLink, Clock, DollarSign } from "lucide-react"
 import type { QuizResult } from "@/types/quiz"
@@ -172,13 +173,25 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
           ))}
         </div>
 
-        <Button variant="outline" className="w-full group bg-transparent mt-auto">
-          <span className="truncate">
-            Aprender más sobre <span className="hidden sm:inline">{area.name}</span>
-            <span className="sm:hidden">esta estrategia</span>
-          </span>
-          <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform flex-shrink-0" />
-        </Button>
+        <Link
+          href={
+            area.id === "airdrops"
+              ? "/estrategias#airdrop-farming"
+              : area.id === "spotHolding"
+              ? "/estrategias#spot-holding"
+              : area.id === "defi"
+              ? "/estrategias#defi-yield-farming"
+              : "/estrategias"
+          }
+        >
+          <Button variant="outline" className="w-full group bg-transparent mt-auto">
+            <span className="truncate">
+              Aprender más sobre <span className="hidden sm:inline">{area.name}</span>
+              <span className="sm:hidden">esta estrategia</span>
+            </span>
+            <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+          </Button>
+        </Link>
         <div className="mt-2">
           <Disclaimer variant="subtle" />
         </div>
