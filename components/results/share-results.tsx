@@ -15,7 +15,8 @@ export function ShareResults({ results }: ShareResultsProps) {
 
   const primaryResult = results.find((r) => r.isPrimary)
   const shareText = `¡Acabo de descubrir mi estrategia crypto perfecta: ${primaryResult?.area.name}! Toma el quiz para encontrar la tuya.`
-  const shareUrl = typeof window !== "undefined" ? window.location.href : ""
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (typeof window !== "undefined" ? window.location.origin : "")
+  const shareUrl = `${siteUrl}/results`
 
   const handleCopyLink = async () => {
     try {
