@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { createPortal } from "react-dom"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star, Clock, DollarSign, Users, MessageCircle, ExternalLink } from "lucide-react"
+import { Star, Clock, DollarSign, Users, MessageCircle, ExternalLink, X } from "lucide-react"
 import { BasePayButton } from "@base-org/account-ui/react"
 import { pay } from "@base-org/account"
 import { 
@@ -39,6 +40,52 @@ interface MentorCardProps {
 export function MentorCard({ mentor, onPaymentInitiated }: MentorCardProps) {
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [recipientWallet, setRecipientWallet] = useState("0xDf8303e583C4c18D6a1159D111cc51A16031257f")
+  const [customAmount, setCustomAmount] = useState(mentor.priceUSDC.toString())
+
+  // Manejar scroll lock y reset de estado cuando se abre el modal
+  useEffect(() => {
+    if (showPaymentModal) {
+      // Bloquear scroll del body
+      document.body.style.overflow = 'hidden'
+      
+      // Solo resetear estado si no hay procesamiento en curso
+      if (!isProcessing) {
+        setPaymentStatus(null)
+        setRecipientWallet("0xDf8303e583C4c18D6a1159D111cc51A16031257f")
+        setCustomAmount(mentor.priceUSDC.toString())
+      }
+      
+      // Listener para cerrar con Escape (solo si no está procesando)
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' && !isProcessing) {
+          setShowPaymentModal(false)
+        }
+      }
+      
+      document.addEventListener('keydown', handleEscape)
+      
+      // Cleanup function
+      return () => {
+        document.body.style.overflow = 'unset'
+        document.removeEventListener('keydown', handleEscape)
+      }
+    } else {
+      // Restaurar scroll del body
+      document.body.style.overflow = 'unset'
+    }
+  }, [showPaymentModal, mentor.priceUSDC, isProcessing])
+
+  // Función para manejar cancelación manual del usuario
+  const handleManualCancel = () => {
+    console.log('Usuario canceló manualmente el pago')
+    setIsProcessing(false)
+    setPaymentStatus('Pago cancelado por el usuario')
+    setTimeout(() => {
+      setShowPaymentModal(false)
+    }, 1000)
+  }
 
   const handlePayment = async () => {
     // Validaciones de seguridad
@@ -48,9 +95,14 @@ export function MentorCard({ mentor, onPaymentInitiated }: MentorCardProps) {
       return
     }
 
-    if (!validatePaymentAmount(mentor.priceUSDC)) {
-      logSecurityEvent('INVALID_PAYMENT_AMOUNT', { amount: mentor.priceUSDC })
+    if (!validatePaymentAmount(customAmount)) {
+      logSecurityEvent('INVALID_PAYMENT_AMOUNT', { amount: customAmount })
       setPaymentStatus('Monto de pago inválido')
+      return
+    }
+
+    if (!recipientWallet || !recipientWallet.startsWith('0x') || recipientWallet.length !== 42) {
+      setPaymentStatus('Error: Dirección de wallet inválida')
       return
     }
 
@@ -66,17 +118,26 @@ export function MentorCard({ mentor, onPaymentInitiated }: MentorCardProps) {
     setPaymentStatus("Iniciando pago...")
     
     try {
-      const sanitizedAmount = mentor.priceUSDC.toString()
+      const sanitizedAmount = customAmount.toString()
+      const sanitizedWallet = sanitizeString(recipientWallet)
       
-      const { id } = await pay({
+      // Agregar timeout para detectar cancelación
+      const paymentPromise = pay({
         amount: sanitizedAmount,
-        to: '0xRecipientAddress', // Reemplazar con dirección del mentor
+        to: sanitizedWallet,
         testnet: true // Cambiar a false para mainnet
       })
+      
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Payment timeout - user may have cancelled')), 30000) // 30 segundos timeout
+      })
+      
+      const result = await Promise.race([paymentPromise, timeoutPromise])
+      const { id } = result as any
 
       // Validar respuesta del pago
       if (!id || typeof id !== 'string') {
-        throw new Error('ID de transacción inválido')
+        throw new Error('ID de transacción inválido o pago cancelado')
       }
 
       setPaymentStatus(`Pago iniciado! ID: ${sanitizeString(id)}`)
@@ -84,17 +145,41 @@ export function MentorCard({ mentor, onPaymentInitiated }: MentorCardProps) {
       
       logSecurityEvent('PAYMENT_SUCCESS', { 
         mentorId: mentor.id, 
-        amount: mentor.priceUSDC,
-        transactionId: id 
+        amount: customAmount,
+        transactionId: id,
+        recipientWallet: sanitizedWallet
       })
+      
+      // Cerrar modal después del pago exitoso
+      setShowPaymentModal(false)
     } catch (error) {
       console.error('Error en el pago:', error)
-      setPaymentStatus('Error en el pago')
+      
+      // Verificar si es un error de cancelación del usuario
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      const isUserCancellation = errorMessage.includes('User rejected') || 
+                                 errorMessage.includes('User denied') || 
+                                 errorMessage.includes('cancelled') ||
+                                 errorMessage.includes('rejected') ||
+                                 errorMessage.includes('timeout') ||
+                                 errorMessage.includes('Payment timeout') ||
+                                 errorMessage.includes('ID de transacción inválido o pago cancelado')
+      
+      if (isUserCancellation) {
+        setPaymentStatus('Pago cancelado por el usuario')
+        // Cerrar modal inmediatamente después de cancelación
+        setTimeout(() => {
+          setShowPaymentModal(false)
+        }, 1000) // Reducido a 1 segundo
+      } else {
+        setPaymentStatus('Error en el pago')
+      }
       
       logSecurityEvent('PAYMENT_ERROR', { 
         mentorId: mentor.id, 
-        amount: mentor.priceUSDC,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        amount: customAmount,
+        error: errorMessage,
+        isUserCancellation
       })
     } finally {
       setIsProcessing(false)
@@ -203,21 +288,13 @@ export function MentorCard({ mentor, onPaymentInitiated }: MentorCardProps) {
           </div>
           
           <Button
-            onClick={handlePayment}
-            disabled={isProcessing}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => setShowPaymentModal(true)}
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
-            {isProcessing ? (
-              <div className="flex items-center gap-2">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                <span>Procesando...</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <DollarSign className="h-4 w-4" />
-                <span>Pagar con Base</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-4 w-4" />
+              <span>Pagar con Base</span>
+            </div>
           </Button>
         </div>
 
@@ -229,6 +306,116 @@ export function MentorCard({ mentor, onPaymentInitiated }: MentorCardProps) {
           </div>
         )}
       </CardContent>
+
+      {/* Modal de Pago usando Portal */}
+      {showPaymentModal && createPortal(
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4"
+          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget && !isProcessing) {
+              setShowPaymentModal(false)
+            }
+          }}
+        >
+          <div 
+            className="bg-background border border-border rounded-lg shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">
+                {isProcessing ? 'Procesando Pago...' : 'Configurar Pago'}
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => !isProcessing && setShowPaymentModal(false)}
+                disabled={isProcessing}
+                className="h-8 w-8 p-0 hover:bg-accent disabled:opacity-50"
+                aria-label="Cerrar modal"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Dirección de Wallet del Mentor
+                </label>
+                <input
+                  type="text"
+                  value={recipientWallet}
+                  onChange={(e) => setRecipientWallet(e.target.value)}
+                  placeholder="0x..."
+                  disabled={isProcessing}
+                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Dirección donde se enviará el pago
+                </p>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Cantidad (USDC)
+                </label>
+                <input
+                  type="number"
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(e.target.value)}
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0"
+                  disabled={isProcessing}
+                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Precio sugerido: ${mentor.priceUSDC} USDC
+                </p>
+              </div>
+              
+              <div className="flex gap-3 pt-4">
+                {isProcessing ? (
+                  <Button
+                    variant="outline"
+                    onClick={handleManualCancel}
+                    className="flex-1 border-red-500 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20"
+                  >
+                    Cancelar Pago
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowPaymentModal(false)}
+                    className="flex-1"
+                  >
+                    Cancelar
+                  </Button>
+                )}
+                <Button
+                  onClick={handlePayment}
+                  disabled={isProcessing || !recipientWallet || !customAmount}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                >
+                  {isProcessing ? (
+                    <div className="flex items-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Procesando...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="h-4 w-4" />
+                      <span>Pagar {customAmount} USDC</span>
+                    </div>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </Card>
   )
 }
