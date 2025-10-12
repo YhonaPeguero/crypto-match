@@ -28,15 +28,28 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
   const [isConnecting, setIsConnecting] = useState(false)
   const [isDisconnected, setIsDisconnected] = useState(false)
 
-  // Inicializar SDK de Base Account
-  const sdk = createBaseAccountSDK({
-    appName: 'CryptoMatch',
-    appLogoUrl: 'https://i.ibb.co/ds7x6csQ/logo.png',
-  })
+  // Inicializar SDK de Base Account con manejo de errores
+  const sdk = (() => {
+    try {
+      return createBaseAccountSDK({
+        appName: 'CryptoMatch',
+        appLogoUrl: 'https://i.ibb.co/ds7x6csQ/logo.png',
+      })
+    } catch (error) {
+      console.warn('Error inicializando Base Account SDK:', error)
+      return null
+    }
+  })()
 
   // Verificar conexión al cargar el componente
   useEffect(() => {
     const checkConnection = async () => {
+      // Si no hay SDK disponible, no hacer nada
+      if (!sdk) {
+        console.log('SDK no disponible, saltando verificación')
+        return
+      }
+      
       // Si el usuario se desconectó manualmente, no verificar conexión
       if (isDisconnected) {
         console.log('Usuario desconectado manualmente, saltando verificación')
@@ -114,6 +127,8 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
     }
 
     // Agregar listeners si el provider está disponible
+    if (!sdk) return
+    
     const provider = sdk.getProvider()
     if (provider && typeof provider.on === 'function') {
       console.log('Agregando listeners de wallet')
@@ -134,6 +149,12 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
   // Función de sign-in
   const handleSignIn = async () => {
     if (isConnecting) return
+    
+    // Si no hay SDK disponible, no hacer nada
+    if (!sdk) {
+      console.log('SDK no disponible, no se puede conectar')
+      return
+    }
     
     setIsConnecting(true)
     try {
@@ -314,6 +335,22 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
           </>
         )}
       </div>
+    )
+  }
+
+  // Si no hay SDK disponible, mostrar botón deshabilitado
+  if (!sdk) {
+    return (
+      <Button
+        variant="outline"
+        size="sm"
+        disabled
+        className="h-10 px-4 flex items-center gap-2 bg-background border-border transition-colors text-sm opacity-50"
+      >
+        <Wallet className="h-4 w-4" />
+        <span className="hidden sm:inline">Wallet No Disponible</span>
+        <span className="sm:hidden">Base</span>
+      </Button>
     )
   }
 
