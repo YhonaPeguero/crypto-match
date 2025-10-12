@@ -1,16 +1,14 @@
 'use client';
 
 import { useEffect } from 'react';
+import { sdk } from '@farcaster/miniapp-sdk';
 
 export function MiniAppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Inicializar el SDK de Base Mini Apps cuando la aplicación esté lista
+    // Inicializar el SDK de Farcaster cuando la aplicación esté lista
     if (typeof window !== 'undefined') {
-      // Verificar si estamos en un contexto de Base Mini App
-      if (window.parent !== window) {
-        // Estamos en un iframe, notificar que la app está lista
-        window.parent.postMessage({ type: 'ready' }, '*');
-      }
+      // Llamar ready() para ocultar la pantalla de splash
+      sdk.actions.ready();
     }
   }, []);
 
