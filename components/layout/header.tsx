@@ -6,6 +6,8 @@ import Image from "next/image"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { BaseHeaderButton } from "@/components/wallet/base-header-button"
+// import { LanguageSelector } from "@/components/language/language-selector"
 
 export function Header() {
   const { theme, setTheme, resolvedTheme } = useTheme()
@@ -30,7 +32,11 @@ export function Header() {
                 CryptoMatch
               </span>
             </Link>
-            <div className="w-10 h-10" />
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8" />
+              <div className="w-32 h-10" />
+              <div className="w-10 h-10" />
+            </div>
           </div>
         </div>
       </header>
@@ -48,22 +54,26 @@ export function Header() {
             </span>
           </Link>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
-            className="rounded-xl hover:bg-accent transition-all duration-200 hover:scale-110"
-            aria-label={resolvedTheme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-          >
-            {resolvedTheme === "dark" ? (
-              <Sun className="h-5 w-5 transition-all duration-300 hover:rotate-180" />
-            ) : (
-              <Moon className="h-5 w-5 transition-all duration-300 hover:rotate-12" />
-            )}
-            <span className="sr-only">
-              {resolvedTheme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-            </span>
-          </Button>
+          <div className="flex items-center gap-3">
+            {/* <LanguageSelector /> */}
+            <BaseHeaderButton />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="h-10 w-10 rounded-xl hover:bg-accent transition-all duration-200 hover:scale-110"
+              aria-label={resolvedTheme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+            >
+              {resolvedTheme === "dark" ? (
+                <Sun className="h-5 w-5 transition-all duration-300 hover:rotate-180" />
+              ) : (
+                <Moon className="h-5 w-5 transition-all duration-300 hover:rotate-12" />
+              )}
+              <span className="sr-only">
+                {resolvedTheme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+              </span>
+            </Button>
+          </div>
         </div>
       </div>
     </header>

@@ -7,7 +7,7 @@ import { RecommendationCard } from "@/components/results/recommendation-card"
 import { ShareResults } from "@/components/results/share-results"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { RotateCcw, ArrowLeft, Trophy, Target, TrendingUp } from "lucide-react"
+import { RotateCcw, ArrowLeft, Trophy, Target, TrendingUp, Users } from "lucide-react"
 import Link from "next/link"
 import { trackEvent, ANALYTICS_EVENTS } from "@/lib/analytics"
 import { saveQuizResults } from "@/lib/quiz-operations"
@@ -171,7 +171,14 @@ export default function ResultsPage() {
                 Ahora que conoces tu estrategia crypto ideal, da el siguiente paso y comienza tu viaje. Recuerda siempre
                 hacer tu propia investigación y nunca invertir más de lo que puedes permitirte perder.
               </p>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/mentores">
+                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                    <Users className="h-4 w-4 mr-2" />
+                    Conseguir Mentor Experto
+                  </Button>
+                </Link>
                 <Link
                   href={
                     primaryResult?.area.id === "airdrops"
@@ -183,12 +190,7 @@ export default function ResultsPage() {
                       : "/estrategias"
                   }
                 >
-                  <Button className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700">
-                    Aprender Más Sobre {primaryResult?.area.name}
-                  </Button>
-                </Link>
-                <Link href="/estrategias">
-                  <Button variant="outline">Explorar Todas las Estrategias</Button>
+                  <Button variant="outline">Aprender Más Sobre {primaryResult?.area.name}</Button>
                 </Link>
               </div>
               <div className="flex justify-center">
