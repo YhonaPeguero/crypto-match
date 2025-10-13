@@ -1,28 +1,26 @@
 #!/usr/bin/env node
 
 /**
- * Test script para verificar que la mini app funciona correctamente
+ * Test script para verificar que la mini app funciona correctamente en producción
  */
 
 const https = require('https');
-const http = require('http');
 
-const ROOT_URL = process.env.NEXT_PUBLIC_URL || 'http://localhost:3001';
+const PRODUCTION_URL = 'https://cryptomatch.vercel.app';
 
-console.log('🧪 Testing CryptoMatch Mini App...\n');
+console.log('🧪 Testing CryptoMatch Mini App in Production...\n');
 
 // Test 1: Verificar que la app responde
 async function testAppResponse() {
   return new Promise((resolve) => {
-    const url = new URL(ROOT_URL);
-    const client = url.protocol === 'https:' ? https : http;
+    const url = new URL(PRODUCTION_URL);
     
-    const req = client.get(url, (res) => {
+    const req = https.get(url, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         if (res.statusCode === 200) {
-          console.log('✅ App responde correctamente');
+          console.log('✅ App responde correctamente en producción');
           resolve(true);
         } else {
           console.log(`❌ App responde con código ${res.statusCode}`);
@@ -36,7 +34,7 @@ async function testAppResponse() {
       resolve(false);
     });
     
-    req.setTimeout(5000, () => {
+    req.setTimeout(10000, () => {
       console.log('❌ Timeout conectando a la app');
       req.destroy();
       resolve(false);
@@ -47,11 +45,10 @@ async function testAppResponse() {
 // Test 2: Verificar manifest de Farcaster
 async function testFarcasterManifest() {
   return new Promise((resolve) => {
-    const manifestUrl = `${ROOT_URL}/.well-known/farcaster.json`;
+    const manifestUrl = `${PRODUCTION_URL}/.well-known/farcaster.json`;
     const url = new URL(manifestUrl);
-    const client = url.protocol === 'https:' ? https : http;
     
-    const req = client.get(url, (res) => {
+    const req = https.get(url, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -60,6 +57,20 @@ async function testFarcasterManifest() {
             const manifest = JSON.parse(data);
             if (manifest.miniapp && manifest.miniapp.name === 'CryptoMatch') {
               console.log('✅ Manifest de Farcaster válido');
+              
+              // Verificar campos específicos
+              if (manifest.miniapp.noindex === false) {
+                console.log('✅ Campo noindex configurado correctamente');
+              } else {
+                console.log('⚠️  Campo noindex no encontrado o incorrecto');
+              }
+              
+              if (manifest.miniapp.homeUrl === PRODUCTION_URL) {
+                console.log('✅ homeUrl apunta a la URL correcta');
+              } else {
+                console.log(`⚠️  homeUrl apunta a: ${manifest.miniapp.homeUrl}`);
+              }
+              
               resolve(true);
             } else {
               console.log('❌ Manifest de Farcaster inválido');
@@ -81,7 +92,7 @@ async function testFarcasterManifest() {
       resolve(false);
     });
     
-    req.setTimeout(5000, () => {
+    req.setTimeout(10000, () => {
       console.log('❌ Timeout obteniendo manifest');
       req.destroy();
       resolve(false);
@@ -92,11 +103,10 @@ async function testFarcasterManifest() {
 // Test 3: Verificar webhook
 async function testWebhook() {
   return new Promise((resolve) => {
-    const webhookUrl = `${ROOT_URL}/api/webhook`;
+    const webhookUrl = `${PRODUCTION_URL}/api/webhook`;
     const url = new URL(webhookUrl);
-    const client = url.protocol === 'https:' ? https : http;
     
-    const req = client.get(url, (res) => {
+    const req = https.get(url, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -104,7 +114,7 @@ async function testWebhook() {
           try {
             const response = JSON.parse(data);
             if (response.message && response.message.includes('Webhook endpoint activo')) {
-              console.log('✅ Webhook funcionando correctamente');
+              console.log('✅ Webhook funcionando correctamente en producción');
               resolve(true);
             } else {
               console.log('❌ Respuesta de webhook inesperada');
@@ -126,7 +136,7 @@ async function testWebhook() {
       resolve(false);
     });
     
-    req.setTimeout(5000, () => {
+    req.setTimeout(10000, () => {
       console.log('❌ Timeout probando webhook');
       req.destroy();
       resolve(false);
@@ -136,7 +146,7 @@ async function testWebhook() {
 
 // Ejecutar todos los tests
 async function runTests() {
-  console.log(`🔗 Probando en: ${ROOT_URL}\n`);
+  console.log(`🔗 Probando en: ${PRODUCTION_URL}\n`);
   
   const results = await Promise.all([
     testAppResponse(),
@@ -150,9 +160,10 @@ async function runTests() {
   console.log(`\n📊 Resultados: ${passed}/${total} tests pasaron`);
   
   if (passed === total) {
-    console.log('🎉 ¡Todos los tests pasaron! La mini app debería funcionar correctamente en Farcaster.');
+    console.log('🎉 ¡Todos los tests pasaron! La mini app está lista para Farcaster.');
   } else {
     console.log('⚠️  Algunos tests fallaron. Revisa los errores arriba.');
+    console.log('\n💡 Si el campo noindex no aparece, necesitas hacer un nuevo deploy.');
   }
   
   process.exit(passed === total ? 0 : 1);

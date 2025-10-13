@@ -1,7 +1,7 @@
 const ROOT_URL =
   process.env.NEXT_PUBLIC_URL ||
   (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
-  "http://localhost:3000";
+  "https://cryptomatch.vercel.app";
 
 const IMAGES_CDN = "https://i.ibb.co";
 
@@ -37,5 +37,6 @@ export const minikitConfig = {
     ogTitle: "Encuentra tu Estrategia Cripto",
     ogDescription: "Descubre en 2 minutos tu estrategia cripto ideal con un quiz personalizado.",
     ogImageUrl: `${IMAGES_CDN}/8Dq1NPv6/preview-social.jpg`,
+    noindex: false, // Permitir que aparezca en resultados de búsqueda
   },
 } as const;
