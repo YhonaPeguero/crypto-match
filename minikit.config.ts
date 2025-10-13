@@ -23,7 +23,7 @@ export const minikitConfig = {
     version: "1",
     name: "CryptoMatch",
     subtitle: "Tu compañero en criptomonedas",
-    description: "Descubre en 2 minutos tu estrategia cripto ideal con un quiz personalizado. Gratis, rapido y sin registro.",
+    description: "Descubre tu estrategia cripto ideal.",
     screenshotUrls: [`${IMAGES_CDN}/m5y6qW24/screenshot-app.jpg`],
     iconUrl: `${IMAGES_CDN}/ds7x6csQ/logo.png`,
     splashImageUrl: `${IMAGES_CDN}/ds7x6csQ/logo.png`,
@@ -35,7 +35,7 @@ export const minikitConfig = {
     heroImageUrl: `${IMAGES_CDN}/8Dq1NPv6/preview-social.jpg`,
     tagline: "Descubre estrategia cripto",
     ogTitle: "Encuentra tu Estrategia Cripto",
-    ogDescription: "Descubre en 2 minutos tu estrategia cripto ideal con un quiz personalizado.",
+    ogDescription: "Descubre tu estrategia cripto ideal",
     ogImageUrl: `${IMAGES_CDN}/8Dq1NPv6/preview-social.jpg`,
     noindex: false, // Permitir que aparezca en resultados de búsqueda
   },
