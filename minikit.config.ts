@@ -17,7 +17,7 @@ export const minikitConfig = {
     signature: "MHgwZGZmYTA5OWExZDg4NzRkYWZhOWYxYjViN2FiN2RiZjJkY2M1NzdjOTVkZWFjZmY4N2M2MzBhOGRhM2NlM2Q4MjQ4NzQwYzU5MTA4MzcxOTYxYjZjZjBlNWZhZWIzNTQwMGUxNjE3MWIzOTY1NWVmN2U1Yzc5ZDhkNTI5YmNjNjFi"
   },
   baseBuilder: {
-    allowedAddresses: [0xDf8303e583C4c18D6a1159D111cc51A16031257f],
+    allowedAddresses: ["0xDf8303e583C4c18D6a1159D111cc51A16031257f"],
   },
   miniapp: {
     version: "1",
@@ -28,7 +28,7 @@ export const minikitConfig = {
     iconUrl: `${IMAGES_CDN}/ds7x6csQ/logo.png`,
     splashImageUrl: `${IMAGES_CDN}/ds7x6csQ/logo.png`,
     splashBackgroundColor: "#E6007A",
-    homeUrl: "https://cryptomatch.vercel.app",
+    homeUrl: ROOT_URL,
     webhookUrl: `${ROOT_URL}/api/webhook`,
     primaryCategory: "finance",
     tags: ["crypto", "quiz", "finance", "education", "base"],

@@ -40,10 +40,18 @@ html {
         <link rel="icon" href="/logo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="shortcut icon" href="/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <ErrorBoundary>
-          <Suspense fallback={null}>
+          <Suspense fallback={
+            <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Cargando CryptoMatch...</p>
+              </div>
+            </div>
+          }>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="cryptomatch-theme">
               <MiniAppProvider>
                 <AnalyticsProvider>
