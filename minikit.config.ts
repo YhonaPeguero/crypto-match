@@ -1,7 +1,5 @@
-const ROOT_URL =
-  process.env.NEXT_PUBLIC_URL ||
-  (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
-  "https://cryptomatch.vercel.app";
+// URL de producción fija para evitar problemas con previews de Vercel
+const ROOT_URL = "https://cryptomatch.vercel.app";
 
 const IMAGES_CDN = "https://i.ibb.co";
 
