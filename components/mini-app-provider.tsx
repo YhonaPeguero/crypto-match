@@ -15,7 +15,7 @@ export function MiniAppProvider({ children }: { children: React.ReactNode }) {
         
         // Verificar si el SDK está disponible
         if (sdk && sdk.actions && typeof sdk.actions.ready === 'function') {
-          // Llamar ready() para ocultar la pantalla de splash
+          // Llamar ready() para ocultar la pantalla de splash - UNA SOLA VEZ
           sdk.actions.ready();
           console.log('✅ Farcaster MiniApp SDK inicializado correctamente');
           setIsInitialized(true);
@@ -28,7 +28,7 @@ export function MiniAppProvider({ children }: { children: React.ReactNode }) {
         setHasError(true);
       }
     }
-  }, []);
+  }, []); // Solo ejecutar una vez - evita bucle infinito
 
   // Si hay error, mostrar mensaje de debug en desarrollo
   if (hasError && process.env.NODE_ENV === 'development') {

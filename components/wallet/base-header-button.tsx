@@ -102,7 +102,7 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
     }
 
     checkConnection()
-  }, [sdk, onAccountConnected])
+  }, []) // Solo ejecutar una vez al montar - evita bucle infinito
 
   // Agregar listeners para eventos de desconexión del wallet
   useEffect(() => {
@@ -144,7 +144,7 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
         }
       }
     }
-  }, [sdk, onAccountDisconnected, isDisconnected])
+  }, []) // Solo ejecutar una vez al montar - evita bucle infinito
 
   // Función de sign-in
   const handleSignIn = async () => {

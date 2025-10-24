@@ -42,7 +42,7 @@ export function BaseActionButton({ primaryResult, onAccountConnected }: BaseActi
     }
 
     checkConnection()
-  }, [sdk, onAccountConnected])
+  }, []) // Solo ejecutar una vez al montar - evita bucle infinito
 
   const handleSignIn = async () => {
     setIsLoading(true)
