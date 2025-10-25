@@ -7,10 +7,11 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { Footer } from "@/components/layout/footer"
-import { MiniAppProvider } from "@/components/mini-app-provider"
 // import { TranslationProvider } from "@/components/translation-provider"
 import { Suspense } from "react"
 import { generateMetadata as generateMetadataFunction } from "@/lib/metadata"
+import { FarcasterSDKInitializer } from "@/components/farcaster-sdk-initializer"
+import { PerformanceMonitor } from "@/components/performance-monitor"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -53,14 +54,15 @@ html {
             </div>
           }>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="cryptomatch-theme">
-              <MiniAppProvider>
+              <PerformanceMonitor />
+              <FarcasterSDKInitializer>
                 <AnalyticsProvider>
                   <div className="flex flex-col min-h-screen">
                     <div className="flex-1">{children}</div>
                     <Footer />
                   </div>
                 </AnalyticsProvider>
-              </MiniAppProvider>
+              </FarcasterSDKInitializer>
             </ThemeProvider>
           </Suspense>
         </ErrorBoundary>

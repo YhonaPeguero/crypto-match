@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback, useRef, memo } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Wallet, CheckCircle, ExternalLink, TrendingUp, DollarSign } from "lucide-react"
@@ -13,36 +13,86 @@ interface BaseActionButtonProps {
   onAccountConnected?: (address: string) => void
 }
 
-export function BaseActionButton({ primaryResult, onAccountConnected }: BaseActionButtonProps) {
+const BaseActionButton = memo(({ primaryResult, onAccountConnected }: BaseActionButtonProps) => {
   const [isConnected, setIsConnected] = useState(false)
   const [accountAddress, setAccountAddress] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  // Inicializar SDK de Base Account
-  const sdk = createBaseAccountSDK({
-    appName: 'CryptoMatch',
-    appLogoUrl: 'https://i.ibb.co/ds7x6csQ/logo.png',
-  })
+  // Debugging refs
+  const renderCount = useRef(0)
+  const lastWalletState = useRef({ isConnected: false, accountAddress: null })
+
+  // Log de renders para detectar loops
+  renderCount.current += 1
+  console.log('[LOCAL-DEBUG] BaseActionButton Render #:', renderCount.current, 'timestamp:', Date.now())
+  
+  if (renderCount.current > 10) {
+    console.warn('[LOCAL-DEBUG] ⚠️ POSIBLE LOOP en BaseActionButton: Más de 10 renders!')
+  }
+
+  // Log de cambios de wallet - DEPENDENCIAS ESTRICTAS
+  useEffect(() => {
+    console.log('[WALLET-DEBUG] BaseActionButton Change:', { isConnected, accountAddress, timestamp: Date.now() });
+    // NO setState dentro si causa loop
+  }, [isConnected, accountAddress]); // Deps: Solo re-run en cambios reales
+
+  // Inicializar SDK de Base Account UNA SOLA VEZ usando useMemo
+  const sdk = useMemo(() => {
+    console.log('[LOCAL-DEBUG] 🔧 Creando Base Account SDK (ActionButton) - timestamp:', Date.now())
+    try {
+      const sdkInstance = createBaseAccountSDK({
+        appName: 'CryptoMatch',
+        appLogoUrl: 'https://i.ibb.co/ds7x6csQ/logo.png',
+      })
+      console.log('[LOCAL-DEBUG] ✅ Base Account SDK (ActionButton) creado exitosamente')
+      return sdkInstance
+    } catch (error) {
+      console.warn('[LOCAL-DEBUG] ❌ Error inicializando Base Account SDK (ActionButton):', error)
+      return null
+    }
+  }, []) // Solo crear una vez - evita re-creación en cada render
+
+  // Función debounced para verificar conexión - evita polling excesivo
+  const debouncedCheckConnection = useCallback(
+    (() => {
+      let timeoutId: NodeJS.Timeout
+      return () => {
+        // DESACTIVAR TEMPORALMENTE EN DESARROLLO PARA TEST
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[LOOP-FIX] Reconexión automática ActionButton desactivada para test')
+          return
+        }
+        
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(async () => {
+          console.log('[LOCAL-DEBUG] 🔍 Verificando conexión ActionButton (debounced) - timestamp:', Date.now())
+          try {
+            const provider = sdk?.getProvider()
+            if (provider) {
+              const accounts = await provider.request({ method: 'eth_accounts' })
+              if (accounts && accounts.length > 0) {
+                console.log('[LOCAL-DEBUG] ✅ Cuenta conectada encontrada:', accounts[0])
+                setIsConnected(true)
+                setAccountAddress(accounts[0])
+                onAccountConnected?.(accounts[0])
+              } else {
+                console.log('[LOCAL-DEBUG] ℹ️ No hay cuentas conectadas')
+              }
+            } else {
+              console.log('[LOCAL-DEBUG] ⚠️ Provider no disponible')
+            }
+          } catch (error) {
+            console.log('[LOCAL-DEBUG] ℹ️ No hay cuenta conectada, esto es normal:', error)
+          }
+        }, 1000) // Debounce de 1 segundo
+      }
+    })(),
+    [sdk, onAccountConnected]
+  )
 
   useEffect(() => {
-    const checkConnection = async () => {
-      try {
-        const provider = sdk.getProvider()
-        if (provider) {
-          const accounts = await provider.request({ method: 'eth_accounts' })
-          if (accounts && accounts.length > 0) {
-            setIsConnected(true)
-            setAccountAddress(accounts[0])
-            onAccountConnected?.(accounts[0])
-          }
-        }
-      } catch (error) {
-        // No hay cuenta conectada, esto es normal
-      }
-    }
-
-    checkConnection()
-  }, []) // Solo ejecutar una vez al montar - evita bucle infinito
+    debouncedCheckConnection()
+  }, [debouncedCheckConnection])
 
   const handleSignIn = async () => {
     setIsLoading(true)
@@ -173,4 +223,6 @@ export function BaseActionButton({ primaryResult, onAccountConnected }: BaseActi
       </CardContent>
     </Card>
   )
-}
+})
+
+export { BaseActionButton }

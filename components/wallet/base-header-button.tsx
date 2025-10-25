@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback, useRef, memo } from "react"
 import { Button } from "@/components/ui/button"
 import { Wallet, CheckCircle, LogOut, ChevronDown, Copy, ExternalLink } from "lucide-react"
 import { createBaseAccountSDK } from "@base-org/account"
@@ -21,88 +21,126 @@ interface BaseHeaderButtonProps {
   onAccountDisconnected?: () => void
 }
 
-export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: BaseHeaderButtonProps) {
+const BaseHeaderButton = memo(({ onAccountConnected, onAccountDisconnected }: BaseHeaderButtonProps) => {
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [accountAddress, setAccountAddress] = useState<string | null>(null)
   const [showDropdown, setShowDropdown] = useState(false)
   const [isConnecting, setIsConnecting] = useState(false)
   const [isDisconnected, setIsDisconnected] = useState(false)
 
-  // Inicializar SDK de Base Account con manejo de errores
-  const sdk = (() => {
+  // Debugging refs
+  const renderCount = useRef(0)
+  const lastWalletState = useRef({ isSignedIn: false, accountAddress: null })
+
+  // Log de renders para detectar loops
+  renderCount.current += 1
+  console.log('[LOCAL-DEBUG] BaseHeaderButton Render #:', renderCount.current, 'timestamp:', Date.now())
+  
+  if (renderCount.current > 10) {
+    console.warn('[LOCAL-DEBUG] ⚠️ POSIBLE LOOP en BaseHeaderButton: Más de 10 renders!')
+  }
+
+  // Log de cambios de wallet - DEPENDENCIAS ESTRICTAS
+  useEffect(() => {
+    console.log('[WALLET-DEBUG] Change:', { isSignedIn, accountAddress, timestamp: Date.now() });
+    // NO setState dentro si causa loop
+  }, [isSignedIn, accountAddress]); // Deps: Solo re-run en cambios reales
+
+  // Inicializar SDK de Base Account UNA SOLA VEZ usando useMemo
+  const sdk = useMemo(() => {
+    console.log('[LOCAL-DEBUG] 🔧 Creando Base Account SDK - timestamp:', Date.now())
     try {
-      return createBaseAccountSDK({
+      const sdkInstance = createBaseAccountSDK({
         appName: 'CryptoMatch',
         appLogoUrl: 'https://i.ibb.co/ds7x6csQ/logo.png',
       })
+      console.log('[LOCAL-DEBUG] ✅ Base Account SDK creado exitosamente')
+      return sdkInstance
     } catch (error) {
-      console.warn('Error inicializando Base Account SDK:', error)
+      console.warn('[LOCAL-DEBUG] ❌ Error inicializando Base Account SDK:', error)
       return null
     }
-  })()
+  }, []) // Solo crear una vez - evita re-creación en cada render
 
-  // Verificar conexión al cargar el componente
-  useEffect(() => {
-    const checkConnection = async () => {
-      // Si no hay SDK disponible, no hacer nada
-      if (!sdk) {
-        console.log('SDK no disponible, saltando verificación')
-        return
-      }
-      
-      // Si el usuario se desconectó manualmente, no verificar conexión
-      if (isDisconnected) {
-        console.log('Usuario desconectado manualmente, saltando verificación')
-        return
-      }
-      
-      try {
-        console.log('Verificando conexión...')
+  // Función debounced para verificar conexión - evita polling excesivo
+  const debouncedCheckConnection = useCallback(
+    (() => {
+      let timeoutId: NodeJS.Timeout
+      return () => {
+        // DESACTIVAR TEMPORALMENTE EN DESARROLLO PARA TEST
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[LOOP-FIX] Reconexión automática desactivada para test')
+          return
+        }
         
-        // Verificar si hay una conexión guardada en localStorage
-        const savedConnection = localStorage.getItem('base-account-connection')
-        if (savedConnection) {
-          const connectionData = JSON.parse(savedConnection)
-          if (connectionData.address && /^0x[a-fA-F0-9]{40}$/.test(connectionData.address)) {
-            console.log('Conexión encontrada en localStorage:', connectionData.address)
-            setIsSignedIn(true)
-            setAccountAddress(connectionData.address)
-            onAccountConnected?.(connectionData.address)
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(async () => {
+          console.log('[LOCAL-DEBUG] 🔍 Verificando conexión (debounced) - timestamp:', Date.now())
+          
+          // Si no hay SDK disponible, no hacer nada
+          if (!sdk) {
+            console.log('[LOCAL-DEBUG] ⚠️ SDK no disponible, saltando verificación')
             return
           }
-        }
-
-        // Si no hay conexión guardada, verificar provider
-        const provider = sdk.getProvider()
-        if (provider && typeof provider.request === 'function') {
-          const accounts = await provider.request({ method: 'eth_accounts' })
-          console.log('Cuentas del provider:', accounts)
           
-          if (Array.isArray(accounts) && accounts.length > 0 && typeof accounts[0] === 'string') {
-            if (/^0x[a-fA-F0-9]{40}$/.test(accounts[0])) {
-              console.log('Cuenta válida encontrada:', accounts[0])
-              setIsSignedIn(true)
-              setAccountAddress(accounts[0])
-              onAccountConnected?.(accounts[0])
-              
-              // Guardar en localStorage
-              localStorage.setItem('base-account-connection', JSON.stringify({
-                address: accounts[0],
-                timestamp: Date.now()
-              }))
-            }
+          // Si el usuario se desconectó manualmente, no verificar conexión
+          if (isDisconnected) {
+            console.log('[LOCAL-DEBUG] ⚠️ Usuario desconectado manualmente, saltando verificación')
+            return
           }
-        }
-      } catch (error) {
-        console.warn('Error verificando conexión:', error)
-        // En caso de error, limpiar estado
-        setIsSignedIn(false)
-        setAccountAddress(null)
-      }
-    }
+          
+          try {
+            
+            // Verificar si hay una conexión guardada en localStorage
+            const savedConnection = localStorage.getItem('base-account-connection')
+            if (savedConnection) {
+              const connectionData = JSON.parse(savedConnection)
+              if (connectionData.address && /^0x[a-fA-F0-9]{40}$/.test(connectionData.address)) {
+                console.log('Conexión encontrada en localStorage:', connectionData.address)
+                setIsSignedIn(true)
+                setAccountAddress(connectionData.address)
+                onAccountConnected?.(connectionData.address)
+                return
+              }
+            }
 
-    checkConnection()
-  }, []) // Solo ejecutar una vez al montar - evita bucle infinito
+            // Si no hay conexión guardada, verificar provider
+            const provider = sdk.getProvider()
+            if (provider && typeof provider.request === 'function') {
+              const accounts = await provider.request({ method: 'eth_accounts' })
+              console.log('Cuentas del provider:', accounts)
+              
+              if (Array.isArray(accounts) && accounts.length > 0 && typeof accounts[0] === 'string') {
+                if (/^0x[a-fA-F0-9]{40}$/.test(accounts[0])) {
+                  console.log('Cuenta válida encontrada:', accounts[0])
+                  setIsSignedIn(true)
+                  setAccountAddress(accounts[0])
+                  onAccountConnected?.(accounts[0])
+                  
+                  // Guardar en localStorage
+                  localStorage.setItem('base-account-connection', JSON.stringify({
+                    address: accounts[0],
+                    timestamp: Date.now()
+                  }))
+                }
+              }
+            }
+          } catch (error) {
+            console.warn('Error verificando conexión:', error)
+            // En caso de error, limpiar estado
+            setIsSignedIn(false)
+            setAccountAddress(null)
+          }
+        }, 1000) // Debounce de 1 segundo
+      }
+    })(),
+    [sdk, isDisconnected, onAccountConnected]
+  )
+
+  // Verificar conexión al cargar el componente - UNA SOLA VEZ
+  useEffect(() => {
+    debouncedCheckConnection()
+  }, [debouncedCheckConnection])
 
   // Agregar listeners para eventos de desconexión del wallet
   useEffect(() => {
@@ -144,10 +182,10 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
         }
       }
     }
-  }, []) // Solo ejecutar una vez al montar - evita bucle infinito
+  }, [sdk]) // Dependencia correcta del SDK
 
-  // Función de sign-in
-  const handleSignIn = async () => {
+  // Función de sign-in - USECALLBACK PARA ESTABILIDAD
+  const handleSignIn = useCallback(async () => {
     if (isConnecting) return
     
     // Si no hay SDK disponible, no hacer nada
@@ -172,6 +210,7 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
       
       if (Array.isArray(accounts) && accounts.length > 0 && typeof accounts[0] === 'string') {
         console.log('Dirección obtenida:', accounts[0])
+        // Batch setState para evitar múltiples re-renders
         setIsSignedIn(true)
         setAccountAddress(accounts[0])
         setIsDisconnected(false) // Resetear flag de desconexión
@@ -193,7 +232,7 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
     } finally {
       setIsConnecting(false)
     }
-  }
+  }, [isConnecting, sdk, onAccountConnected]) // Dependencias estrictas
 
   // Función de desconexión según documentación oficial de Base Account
   const handleDisconnect = () => {
@@ -371,4 +410,6 @@ export function BaseHeaderButton({ onAccountConnected, onAccountDisconnected }: 
       </span>
     </Button>
   )
-}
+})
+
+export { BaseHeaderButton }
