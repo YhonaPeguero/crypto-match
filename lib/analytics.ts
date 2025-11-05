@@ -1,6 +1,10 @@
 import { supabase, isSupabaseConfigured } from "./supabase"
 import { getSessionId } from "./storage"
 import type { AnalyticsEvent, AnalyticsEventType } from "@/types/analytics"
+import { ANALYTICS_EVENTS } from "@/types/analytics"
+
+// Re-exportar ANALYTICS_EVENTS para compatibilidad
+export { ANALYTICS_EVENTS }
 
 // Sanitiza eventData para evitar envío de PII/secretos y limitar tamaño
 function sanitizeEventData(raw: Record<string, any> | undefined): Record<string, any> | undefined {
@@ -36,17 +40,6 @@ function sanitizeEventData(raw: Record<string, any> | undefined): Record<string,
   }
   return sanitized
 }
-
-export const ANALYTICS_EVENTS = {
-  QUIZ_STARTED: "quiz_started",
-  QUESTION_ANSWERED: "question_answered",
-  QUIZ_COMPLETED: "quiz_completed",
-  RESULTS_VIEWED: "results_viewed",
-  RECOMMENDATION_CLICKED: "recommendation_clicked",
-  QUIZ_SHARED: "quiz_shared",
-  QUIZ_RETAKEN: "quiz_retaken",
-  PAGE_VIEW: "page_view",
-} as const
 
 export async function trackEvent(eventType: AnalyticsEventType, eventData?: Record<string, any>): Promise<void> {
   try {

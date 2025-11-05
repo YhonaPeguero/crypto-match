@@ -14,6 +14,7 @@ export const ANALYTICS_EVENTS = {
   QUIZ_SHARED: "quiz_shared",
   QUIZ_RETAKEN: "quiz_retaken",
   PAGE_VIEW: "page_view",
+  MENTOR_PAYMENT_INITIATED: "mentor_payment_initiated",
 } as const
 
 export type AnalyticsEventType = (typeof ANALYTICS_EVENTS)[keyof typeof ANALYTICS_EVENTS]

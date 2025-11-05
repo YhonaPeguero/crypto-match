@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, Star, DollarSign, Clock, Shield, Zap } from "lucide-react"
 import { MENTORS, getMentorsByStrategy, type Mentor } from "@/lib/mentors-data"
-import { trackEvent } from "@/lib/analytics"
+import { trackEvent, ANALYTICS_EVENTS } from "@/lib/analytics"
 import { validateMentorData, sanitizeString, logSecurityEvent } from "@/lib/security"
 
 const STRATEGY_FILTERS = [
@@ -40,7 +40,7 @@ export default function MentoresPage() {
     
     setPaymentStatus(`Pago de ${sanitizedAmount} USDC iniciado para mentor ${sanitizedMentorId}`)
     
-    trackEvent("MENTOR_PAYMENT_INITIATED", {
+    trackEvent(ANALYTICS_EVENTS.MENTOR_PAYMENT_INITIATED, {
       mentor_id: sanitizedMentorId,
       amount_usdc: parseFloat(sanitizedAmount),
       strategy: selectedStrategy
