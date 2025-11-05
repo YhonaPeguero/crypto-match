@@ -1,14 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+// Supabase deshabilitado completamente para evitar errores de conexión
+// El cliente nunca se crea, evitando intentos de conexión que causan errores
+export const isSupabaseConfigured = false
 
-export const isSupabaseConfigured =
-  typeof supabaseUrl === "string" &&
-  supabaseUrl.length > 0 &&
-  typeof supabaseAnonKey === "string" &&
-  supabaseAnonKey.length > 0
-
-export const supabase: SupabaseClient | null = isSupabaseConfigured
-  ? createClient(supabaseUrl as string, supabaseAnonKey as string)
-  : null
+export const supabase: SupabaseClient | null = null
