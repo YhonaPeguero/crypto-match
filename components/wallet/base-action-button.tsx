@@ -70,6 +70,9 @@ const BaseActionButton = memo(({ primaryResult, onAccountConnected }: BaseAction
             const provider = sdk?.getProvider()
             if (provider) {
               const accounts = await provider.request({ method: 'eth_accounts' })
+              if (process.env.NODE_ENV === 'development') {
+                console.log('[LOCAL-DEBUG] Accounts:', accounts)
+              }
               if (accounts && accounts.length > 0) {
                 console.log('[LOCAL-DEBUG] ✅ Cuenta conectada encontrada:', accounts[0])
                 setIsConnected(true)

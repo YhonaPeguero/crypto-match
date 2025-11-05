@@ -108,7 +108,9 @@ const BaseHeaderButton = memo(({ onAccountConnected, onAccountDisconnected }: Ba
             const provider = sdk.getProvider()
             if (provider && typeof provider.request === 'function') {
               const accounts = await provider.request({ method: 'eth_accounts' })
-              console.log('Cuentas del provider:', accounts)
+              if (process.env.NODE_ENV === 'development') {
+                console.log('Cuentas del provider:', accounts)
+              }
               
               if (Array.isArray(accounts) && accounts.length > 0 && typeof accounts[0] === 'string') {
                 if (/^0x[a-fA-F0-9]{40}$/.test(accounts[0])) {
