@@ -69,7 +69,7 @@ const BaseActionButton = memo(({ primaryResult, onAccountConnected }: BaseAction
           try {
             const provider = sdk?.getProvider()
             if (provider) {
-              const accounts = await provider.request({ method: 'eth_accounts' })
+              const accounts = (await provider.request({ method: 'eth_accounts' })) as string[]
               if (process.env.NODE_ENV === 'development') {
                 console.log('[LOCAL-DEBUG] Accounts:', accounts)
               }
@@ -98,12 +98,16 @@ const BaseActionButton = memo(({ primaryResult, onAccountConnected }: BaseAction
   }, [debouncedCheckConnection])
 
   const handleSignIn = async () => {
+    if (!sdk) {
+      console.warn('[LOCAL-DEBUG] ⚠️ SDK no disponible, no se puede iniciar sesión')
+      return
+    }
     setIsLoading(true)
     try {
       await sdk.getProvider().request({ method: 'wallet_connect' })
       setIsConnected(true)
       
-      const accounts = await sdk.getProvider().request({ method: 'eth_accounts' })
+      const accounts = (await sdk.getProvider().request({ method: 'eth_accounts' })) as string[]
       if (accounts && accounts.length > 0) {
         setAccountAddress(accounts[0])
         onAccountConnected?.(accounts[0])
@@ -201,16 +205,14 @@ const BaseActionButton = memo(({ primaryResult, onAccountConnected }: BaseAction
         </p>
 
         <div className="flex flex-col items-center gap-3">
-          <SignInWithBaseButton 
-            align="center"
-            variant="solid"
-            colorScheme="light"
-            size="medium"
-            onClick={handleSignIn}
-            style={{
-              maxWidth: '250px'
-            }}
-          />
+          <div style={{ maxWidth: '250px' }}>
+            <SignInWithBaseButton 
+              align="center"
+              variant="solid"
+              colorScheme="light"
+              onClick={handleSignIn}
+            />
+          </div>
           
           {isLoading && (
             <div className="text-center">

@@ -3,11 +3,13 @@
 import { useState, useEffect, createContext, useContext } from 'react'
 import { Language, getTranslation } from './translations'
 
-interface TranslationContextType {
+export interface TranslationContextType {
   language: Language
   setLanguage: (language: Language) => void
   t: (key: string) => string
 }
+
+export type { Language }
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined)
 

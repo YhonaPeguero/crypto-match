@@ -37,7 +37,7 @@ export interface Translations {
     startQuiz: string
     takesMinutes: string
     noRegistration: string
-    activeCommunity: string
+
     starRating: string
   }
   

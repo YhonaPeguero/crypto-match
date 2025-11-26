@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { Language, translations } from './translations'
+import { minikitConfig } from '../minikit.config'
 
 export function generateMetadata(language: Language = 'es'): Metadata {
   const t = translations[language]
@@ -82,17 +83,30 @@ export function generateMetadata(language: Language = 'es'): Metadata {
     },
     generator: 'v0.app',
     other: {
+      'fc:frame': JSON.stringify({
+        version: minikitConfig.miniapp.version,
+        imageUrl: minikitConfig.miniapp.heroImageUrl,
+        button: {
+          title: language === 'es' 
+            ? `Únete a ${minikitConfig.miniapp.name}` 
+            : `Join ${minikitConfig.miniapp.name}`,
+          action: {
+            name: `Launch ${minikitConfig.miniapp.name}`,
+            type: 'launch_frame',
+          },
+        },
+      }),
       'fc:miniapp': JSON.stringify({
-        version: 'next',
-        imageUrl: 'https://i.ibb.co/8Dq1NPv6/preview-social.jpg',
+        version: minikitConfig.miniapp.version,
+        imageUrl: minikitConfig.miniapp.heroImageUrl,
         button: {
           title: language === 'es' ? 'Comenzar Quiz' : 'Start Quiz',
           action: {
             type: 'launch_miniapp',
-            name: 'CryptoMatch',
-            url: 'https://cryptomatch.vercel.app',
-            splashImageUrl: 'https://i.ibb.co/ds7x6csQ/logo.png',
-            splashBackgroundColor: '#E6007A',
+            name: minikitConfig.miniapp.name,
+            url: minikitConfig.miniapp.homeUrl,
+            splashImageUrl: minikitConfig.miniapp.splashImageUrl,
+            splashBackgroundColor: minikitConfig.miniapp.splashBackgroundColor,
           },
         },
       }),

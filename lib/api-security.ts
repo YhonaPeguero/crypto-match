@@ -40,7 +40,7 @@ export function validateRequest(request: NextRequest) {
 
 // Rate limiting por IP
 export function checkIPRateLimit(request: NextRequest, maxRequests: number = 100, windowMs: number = 60000) {
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = (request as any).ip || request.headers.get('x-forwarded-for') || 'unknown'
   return checkRateLimit(`ip_${ip}`, maxRequests, windowMs)
 }
 
@@ -91,7 +91,7 @@ export function securityMiddleware(request: NextRequest) {
   // Rate limiting por IP
   if (!checkIPRateLimit(request)) {
     logSecurityEvent('RATE_LIMIT_EXCEEDED_IP', { 
-      ip: request.ip || request.headers.get('x-forwarded-for'),
+      ip: (request as any).ip || request.headers.get('x-forwarded-for'),
       userAgent: request.headers.get('user-agent')
     })
     return new NextResponse('Demasiadas requests', { status: 429 })
@@ -101,7 +101,7 @@ export function securityMiddleware(request: NextRequest) {
 }
 
 // Sanitización de respuesta
-export function sanitizeResponse(data: any) {
+export function sanitizeResponse(data: any): any {
   if (typeof data === 'string') {
     return sanitizeString(data)
   }
@@ -142,7 +142,7 @@ export function validateSession(sessionData: any) {
 
 // Logging de eventos de API
 export function logAPIEvent(event: string, request: NextRequest, details: any = {}) {
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = (request as any).ip || request.headers.get('x-forwarded-for') || 'unknown'
   const userAgent = request.headers.get('user-agent') || 'unknown'
   
   logSecurityEvent(event, {

@@ -1,8 +1,8 @@
 "use client"
 
 import { createContext, useContext, ReactNode } from 'react'
-import { useLanguage } from '@/lib/use-translation'
-import { Language, TranslationContextType } from '@/lib/use-translation'
+import { useLanguage, TranslationContextType } from '@/lib/use-translation'
+import { Language } from '@/lib/translations'
 
 const TranslationContext = createContext<TranslationContextType | undefined>(undefined)
 
