@@ -55,49 +55,28 @@ export function HomePageWrapper() {
 
       <main className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
         {/* Hero Section centrado y limpio */}
-        <section className="mx-auto max-w-3xl text-center space-y-3 sm:space-y-5 mb-12 sm:mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border border-orange-200 dark:border-orange-800 mb-2 animate-in slide-in-from-top-4 duration-1000">
-              <Sparkles className="h-4 w-4 text-orange-600 mr-2 motion-safe:animate-pulse" />
-              <span className="text-sm font-medium text-orange-700 dark:text-orange-300">{t('home.discoverStrategy')}</span>
-            </div>
-
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent leading-tight animate-in slide-in-from-bottom-4 duration-1000">
-              {t('home.findPerfectStrategy')}
+        <section className="mx-auto max-w-3xl text-center space-y-6 mb-12 sm:mb-16">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent leading-[1.1] animate-in slide-in-from-bottom-4 duration-1000 py-2">
+              Encuentra Tu Estrategia
               <br />
-              <span className="relative">
-                {t('home.cryptoPerfect')}
-                <div className="absolute -bottom-1 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 w-24 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-full animate-in slide-in-from-left duration-1000 delay-500 motion-safe:animate-pulse"></div>
+              <span className="relative inline-block mt-2">
+                Crypto Perfecta
               </span>
             </h1>
 
-            <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed px-4 animate-in slide-in-from-bottom-4 duration-1000 delay-200">
-              {t('home.takeQuiz')}
-            </p>
 
-            {/* Social proof */}
-            <div className="mt-2 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground px-4">
-              <div className="inline-flex items-center gap-1">
-                <Star className="h-4 w-4 text-yellow-500" />
-                <span>{t('home.starRating')}</span>
-              </div>
-              <div className="inline-flex items-center gap-1">
-                <Users className="h-4 w-4 text-blue-500" />
-                <span>{t('home.activeCommunity')}</span>
-              </div>
-              <div className="inline-flex items-center gap-1">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                <span>{t('home.noRegistration')}</span>
-              </div>
-            </div>
 
-            <div className="mt-2 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 animate-in slide-in-from-bottom-4 duration-1000 delay-300">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 animate-in slide-in-from-bottom-4 duration-1000 delay-300 pt-4">
               <Link href="/quiz">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto group"
+                  className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-6 text-lg font-bold rounded-2xl shadow-[0_0_20px_rgba(234,88,12,0.3)] hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] transition-all duration-300 group relative overflow-hidden"
                 >
-                  {t('home.startQuiz')}
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform duration-200" />
+                  <span className="relative z-10 flex items-center">
+                    {t('home.startQuiz')}
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Button>
               </Link>
               <div className="flex items-center text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full hover:bg-muted/70 transition-colors">
