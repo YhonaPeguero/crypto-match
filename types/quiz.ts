@@ -25,6 +25,7 @@ export interface CryptoArea {
   capitalRequirement: "low" | "medium" | "high"
   tags: string[]
   detailedDescription: string
+  difficulty: "beginner" | "intermediate" | "advanced"
 }
 
 export type UserLevel = 'principiante' | 'intermedio' | 'avanzado'

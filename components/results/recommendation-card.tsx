@@ -109,14 +109,14 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
           <Badge 
             variant="outline" 
             className={`text-xs font-medium ${
-              userLevel === 'principiante' ? 'border-green-500 text-green-700 bg-green-50 dark:border-green-400 dark:text-green-300 dark:bg-green-950/20' :
-              userLevel === 'intermedio' ? 'border-yellow-500 text-yellow-700 bg-yellow-50 dark:border-yellow-400 dark:text-yellow-300 dark:bg-yellow-950/20' :
+              area.difficulty === 'beginner' ? 'border-green-500 text-green-700 bg-green-50 dark:border-green-400 dark:text-green-300 dark:bg-green-950/20' :
+              area.difficulty === 'intermediate' ? 'border-yellow-500 text-yellow-700 bg-yellow-50 dark:border-yellow-400 dark:text-yellow-300 dark:bg-yellow-950/20' :
               'border-purple-500 text-purple-700 bg-purple-50 dark:border-purple-400 dark:text-purple-300 dark:bg-purple-950/20'
             }`}
           >
-            {userLevel === 'principiante' && 'Principiante'}
-            {userLevel === 'intermedio' && 'Intermedio'}
-            {userLevel === 'avanzado' && 'Avanzado'}
+            {area.difficulty === 'beginner' && 'Principiante'}
+            {area.difficulty === 'intermediate' && 'Intermedio'}
+            {area.difficulty === 'advanced' && 'Avanzado'}
           </Badge>
         </div>
 

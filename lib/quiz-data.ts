@@ -111,6 +111,7 @@ export const CRYPTO_AREAS: Record<string, CryptoArea> = {
     tags: ["principiante", "largo-plazo", "pasivo", "bitcoin", "ethereum"],
     detailedDescription:
       "Perfecto para principiantes que quieren invertir en criptomonedas sin complejidad. Simplemente compra Bitcoin, Ethereum u otras monedas principales y manténlas a largo plazo. Esta estrategia requiere tiempo y conocimiento técnico mínimo mientras ofrece exposición al potencial de crecimiento crypto.",
+    difficulty: "beginner",
   },
   airdrops: {
     id: "airdrops",
@@ -122,6 +123,7 @@ export const CRYPTO_AREAS: Record<string, CryptoArea> = {
     tags: ["tokens-gratis", "early-adopter", "investigación", "defi", "proyectos-nuevos"],
     detailedDescription:
       "Obtén criptomonedas gratis siendo un usuario temprano de nuevos protocolos. Esto implica probar nuevas plataformas, hacer transacciones y participar en testnets. Aunque requiere tiempo, puede ser muy gratificante con riesgo financiero mínimo.",
+    difficulty: "intermediate",
   },
   defi: {
     id: "defi",
@@ -133,6 +135,7 @@ export const CRYPTO_AREAS: Record<string, CryptoArea> = {
     tags: ["rendimiento", "staking", "liquidez", "ingresos-pasivos", "smart-contracts"],
     detailedDescription:
       "Genera ingresos pasivos prestando tus criptos, proporcionando liquidez a exchanges, o haciendo staking de tokens. Ofrece rendimientos atractivos pero requiere entender los riesgos de smart contracts y pérdida impermanente.",
+    difficulty: "advanced",
   },
   futuresTrading: {
     id: "futuresTrading",
@@ -144,6 +147,7 @@ export const CRYPTO_AREAS: Record<string, CryptoArea> = {
     tags: ["apalancamiento", "derivados", "trading-activo", "análisis-técnico", "alto-riesgo"],
     detailedDescription:
       "Estrategia de trading avanzada usando apalancamiento para amplificar ganancias potenciales (y pérdidas). Requiere conocimiento profundo del mercado, habilidades de análisis técnico y monitoreo activo. Alto riesgo pero potencialmente alta recompensa para traders experimentados.",
+    difficulty: "advanced",
   },
   nfts: {
     id: "nfts",
@@ -155,6 +159,7 @@ export const CRYPTO_AREAS: Record<string, CryptoArea> = {
     tags: ["coleccionables", "arte", "gaming", "comunidad", "creativo"],
     detailedDescription:
       "Participa en el ecosistema NFT operando coleccionables digitales, creando tus propios NFTs, o invirtiendo en proyectos NFT. Altamente especulativo pero ofrece oportunidades creativas y dirigidas por la comunidad.",
+    difficulty: "intermediate",
   },
   memeCoins: {
     id: "memeCoins",
@@ -166,5 +171,6 @@ export const CRYPTO_AREAS: Record<string, CryptoArea> = {
     tags: ["viral", "comunidad", "alta-volatilidad", "redes-sociales", "especulativo"],
     detailedDescription:
       "Opera criptomonedas que ganan popularidad a través de redes sociales y hype comunitario. Extremadamente volátil y especulativo, pero puede ofrecer ganancias masivas para aquellos que capturan tendencias temprano.",
+    difficulty: "intermediate",
   },
 }
