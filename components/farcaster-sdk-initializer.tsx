@@ -11,12 +11,12 @@ export function FarcasterSDKInitializer({ children }: { children: React.ReactNod
     if (typeof window !== 'undefined' && !readyCalled.current) {
       // Usar requestAnimationFrame para asegurar que el DOM esté renderizado
       requestAnimationFrame(() => {
-        setTimeout(() => {
+        setTimeout(async () => {
           try {
             console.log('[Farcaster SDK] Calling ready()...');
             
             if (sdk && sdk.actions && typeof sdk.actions.ready === 'function') {
-              sdk.actions.ready();
+              await sdk.actions.ready();
               readyCalled.current = true;
               console.log('[Farcaster SDK] ✅ ready() called successfully');
             } else {
