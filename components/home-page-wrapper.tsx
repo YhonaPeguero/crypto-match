@@ -3,201 +3,221 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Header } from "@/components/layout/header"
-import { ArrowRight, Clock, Target, TrendingUp, Sparkles, Users, Shield, Star, CheckCircle } from "lucide-react"
+import { ArrowRight, Clock, Target, Zap, Shield, Sparkles, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { Disclaimer } from "@/components/ui/disclaimer"
-// import { useTranslation } from "@/components/translation-provider"
+import { HeroVisual } from "@/components/home/hero-visual"
 
 export function HomePageWrapper() {
-  // Textos hardcodeados en español
-  const t = (key: string) => {
-    const translations: Record<string, string> = {
-      'home.discoverStrategy': 'Descubre tu estrategia crypto ideal',
-      'home.findPerfectStrategy': 'Encuentra Tu Estrategia',
-      'home.cryptoPerfect': 'Crypto Perfecta',
-      'home.takeQuiz': 'Toma nuestro quiz personalizado y descubre el enfoque de criptomonedas que mejor se adapta a tus objetivos, tu tolerancia al riesgo y tu nivel de experiencia.',
-      'home.startQuiz': 'Comenzar Quiz',
-      'home.takesMinutes': 'Toma 2-3 minutos',
-      'home.starRating': '4.8/5 (2.3k+)',
-      'home.activeCommunity': 'Comunidad activa',
-      'home.noRegistration': 'Sin registro',
-      'home.personalizedResults': 'Resultados Personalizados',
-      'home.personalizedResultsDesc': 'Obtén recomendaciones adaptadas a tu situación específica y objetivos',
-      'home.expertInsights': 'Insights de Expertos',
-      'home.expertInsightsDesc': 'Basado en estrategias y condiciones actuales del mercado',
-      'home.quickEasy': 'Rápido y Fácil',
-      'home.quickEasyDesc': 'Preguntas simples que toman solo unos minutos completar',
-      'home.anonymous': '100% Anónimo',
-      'home.anonymousDesc': 'No requerimos registro ni información personal. Tus respuestas son completamente privadas.',
-      'home.activeCommunityDesc': 'Únete a miles de personas que ya han descubierto su camino en el mundo crypto.',
-      'home.readyToStart': '¿Listo para Comenzar?',
-      'home.joinThousands': 'Únete a miles de personas que han descubierto su estrategia crypto ideal',
-      'home.takeQuizNow': 'Tomar el Quiz Ahora'
-    }
-    return translations[key] || key
-  }
-  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/10 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="hidden md:block absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-orange-400/20 to-red-400/20 rounded-full blur-3xl motion-safe:animate-pulse motion-reduce:animate-none"></div>
-        <div className="hidden md:block absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl motion-safe:animate-pulse motion-reduce:animate-none delay-1000"></div>
-        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-green-400/10 to-cyan-400/10 rounded-full blur-3xl motion-safe:animate-pulse motion-reduce:animate-none delay-2000"></div>
-
-        {/* Partículas flotantes (solo desktop) */}
-        <div className="hidden md:block absolute top-20 left-20 w-2 h-2 bg-orange-400/40 rounded-full motion-safe:animate-bounce motion-reduce:animate-none delay-300"></div>
-        <div className="hidden md:block absolute top-40 right-32 w-1 h-1 bg-red-400/40 rounded-full motion-safe:animate-bounce motion-reduce:animate-none delay-700"></div>
-        <div className="hidden md:block absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-blue-400/40 rounded-full motion-safe:animate-bounce motion-reduce:animate-none delay-1100"></div>
-        <div className="hidden md:block absolute bottom-20 right-20 w-2 h-2 bg-purple-400/40 rounded-full motion-safe:animate-bounce motion-reduce:animate-none delay-1500"></div>
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-background">
+      {/* Background Ambience */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[100px] animate-pulse-slow" style={{animationDelay: "2s"}}></div>
       </div>
 
       <Header />
 
-      <main className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
-        {/* Hero Section centrado y limpio */}
-        <section className="mx-auto max-w-3xl text-center space-y-6 mb-12 sm:mb-16">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent leading-[1.1] animate-in slide-in-from-bottom-4 duration-1000 py-2">
-              Encuentra Tu Estrategia
-              <br />
-              <span className="relative inline-block mt-2">
-                Crypto Perfecta
-              </span>
+      <main className="flex-1 container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative z-10 flex flex-col justify-center">
+        
+        {/* Hero Section - Improved Typography & Spacing */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+          <div className="space-y-8 text-center lg:text-left animate-in slide-in-from-left duration-700 fade-in">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-semibold tracking-wider uppercase">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>AI-Powered Analysis</span>
+            </div>
+            
+            {/* Title - Reduced size */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              Find Your Perfect{" "}
+              <span className="text-[#0052FF]">Base Strategy Match</span>
             </h1>
+            
+            {/* Description - Concise, readable */}
+            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Discover your ideal crypto strategy in 2 minutes.
+              <br />
+              Anonymous. Free.
+            </p>
 
-
-
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 animate-in slide-in-from-bottom-4 duration-1000 delay-300 pt-4">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2 justify-center lg:justify-start">
               <Link href="/quiz">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-6 text-lg font-bold rounded-2xl shadow-[0_0_20px_rgba(234,88,12,0.3)] hover:shadow-[0_0_30px_rgba(234,88,12,0.5)] transition-all duration-300 group relative overflow-hidden"
+                <Button 
+                  variant="neon" 
+                  size="lg" 
+                  className="w-full sm:w-auto h-12 px-8 text-base font-semibold rounded-full shadow-[0_0_20px_hsla(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsla(var(--primary)/0.5)] hover:scale-105 transition-all duration-300"
                 >
-                  <span className="relative z-10 flex items-center">
-                    {t('home.startQuiz')}
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  Start Quiz
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
-              <div className="flex items-center text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full hover:bg-muted/70 transition-colors">
-                <Clock className="h-4 w-4 mr-2 text-purple-600" />
-                {t('home.takesMinutes')}
+              
+              {/* Trust signals - Subtle */}
+              <div className="flex items-center gap-4 px-2 text-sm text-muted-foreground justify-center lg:justify-start">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-primary" />
+                  <span>2 min</span>
+                </div>
+                <div className="w-px h-4 bg-border"></div>
+                <div className="flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-primary" />
+                  <span>Anonymous</span>
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* Disclaimer NFA/NFY */}
-            <Disclaimer className="mt-1 md:mt-0 px-4" />
-        </section>
+          {/* Hero Visual */}
+          <div className="relative animate-in slide-in-from-right duration-1000 fade-in lg:h-auto flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 blur-[60px] rounded-full opacity-60"></div>
+            <HeroVisual />
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 sm:mb-16 px-4">
-          <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card via-card to-card/80 border-0 shadow-xl hover:shadow-2xl transition-transform duration-300 hover:translate-y-[-6px] animate-in slide-in-from-bottom-4 duration-1000 delay-700 group backdrop-blur-sm">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-500"></div>
-            <CardContent className="p-6 sm:p-8 text-center space-y-4 relative z-10">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mx-auto shadow-lg group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
-                <Target className="h-7 w-7 text-white" />
+        {/* Feature Grid - Improved spacing */}
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-16">
+          <Card className="glass-card hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
+            <CardContent className="p-8 space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
+                <Target className="w-6 h-6" />
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-blue-600 transition-colors">
-                {t('home.personalizedResults')}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {t('home.personalizedResultsDesc')}
+              <h3 className="text-xl font-bold">Personalized Results</h3>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                Strategies tailored to your risk profile.
               </p>
             </CardContent>
           </Card>
 
-          <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card via-card to-card/80 border-0 shadow-xl hover:shadow-2xl transition-transform duration-300 hover:translate-y-[-6px] animate-in slide-in-from-bottom-4 duration-1000 delay-800 group backdrop-blur-sm">
-            <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-emerald-500"></div>
-            <CardContent className="p-6 sm:p-8 text-center space-y-4 relative z-10">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center mx-auto shadow-lg group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
-                <TrendingUp className="h-7 w-7 text-white" />
+          <Card className="glass-card hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
+            <CardContent className="p-8 space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
+                <Zap className="w-6 h-6" />
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-green-600 transition-colors">
-                {t('home.expertInsights')}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {t('home.expertInsightsDesc')}
+              <h3 className="text-xl font-bold">Quick & Easy</h3>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                No complex jargon. Just what you need.
               </p>
             </CardContent>
           </Card>
 
-          <Card className="relative h-full overflow-hidden bg-gradient-to-br from-card via-card to-card/80 border-0 shadow-xl hover:shadow-2xl transition-transform duration-300 hover:translate-y-[-6px] md:col-span-2 lg:col-span-1 animate-in slide-in-from-bottom-4 duration-1000 delay-900 group backdrop-blur-sm">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-            <CardContent className="p-6 sm:p-8 text-center space-y-4 relative z-10">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mx-auto shadow-lg animate-pulse delay-500 group-hover:scale-110 transition-transform duration-300">
-                <Clock className="h-7 w-7 text-white" />
+          <Card className="glass-card hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
+            <CardContent className="p-8 space-y-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
+                <Shield className="w-6 h-6" />
               </div>
-              <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-purple-600 transition-colors">
-                {t('home.quickEasy')}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {t('home.quickEasyDesc')}
+              <h3 className="text-xl font-bold">100% Anonymous</h3>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                Your privacy is sacred. No tracking.
               </p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Trust Section */}
-        <div className="grid sm:grid-cols-2 gap-8 mb-12 sm:mb-16 px-4">
-          <Card className="relative overflow-hidden bg-gradient-to-br from-card via-card to-card/80 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 animate-in slide-in-from-left duration-1000 delay-1000 hover:scale-105 hover:-translate-y-2 group backdrop-blur-sm">
-            <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-emerald-500"></div>
-            <CardContent className="p-6 sm:p-8 space-y-4 relative z-10">
-              <div className="flex items-center space-x-3">
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg animate-pulse group-hover:scale-110 transition-transform duration-300">
-                  <Shield className="h-6 w-6 text-white" />
+        {/* Base Onchain Hub Teaser - Subtle */}
+        <Card className="glass-panel border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-transparent mb-16 relative overflow-hidden group hover:border-primary/40 transition-all duration-300">
+          <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary via-transparent to-primary opacity-50 group-hover:opacity-100 transition-opacity"></div>
+          <CardContent className="p-8 md:p-10">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="space-y-5">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#0052FF]">
+                    Base Onchain Hub
+                  </h2>
                 </div>
-                <h3 className="text-base font-semibold text-foreground group-hover:text-green-600 transition-colors">
-                  {t('home.anonymous')}
-                </h3>
-              </div>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {t('home.anonymousDesc')}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="relative overflow-hidden bg-gradient-to-br from-card via-card to-card/80 border-0 shadow-xl hover:shadow-2xl transition-all duration-500 animate-in slide-in-from-right duration-1000 delay-1100 hover:scale-105 hover:-translate-y-2 group backdrop-blur-sm">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-            <CardContent className="p-6 sm:p-8 space-y-4 relative z-10">
-              <div className="flex items-center space-x-3">
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-lg animate-pulse delay-500 group-hover:scale-110 transition-transform duration-300">
-                  <Users className="h-6 w-6 text-white" />
+                
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  Explore verified apps on Base. Free and low-cost to boost your onchain activity.
+                  <br />
+                  <span className="text-foreground font-medium">From discovery to action.</span>
+                </p>
+                
+                <div className="flex flex-wrap gap-4 pt-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>15+ verified apps</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Free & low-cost</span>
+                  </div>
                 </div>
-                <h3 className="text-base font-semibold text-foreground group-hover:text-blue-600 transition-colors">
-                  {t('home.activeCommunity')}
-                </h3>
+                
+                <div className="pt-2">
+                  <Link href="/hub">
+                    <Button 
+                      variant="ghost-tech" 
+                      size="lg" 
+                      className="h-11 px-6 text-sm font-medium rounded-full group/btn"
+                    >
+                      Explore Hub
+                      <ExternalLink className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {t('home.activeCommunityDesc')}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+              
+              <div className="hidden md:block relative">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-secondary/10 blur-[40px] rounded-full opacity-50"></div>
+                <div className="relative grid grid-cols-2 gap-3">
+                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow">
+                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
+                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
+                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
+                  </div>
+                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow" style={{animationDelay: "0.5s"}}>
+                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
+                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
+                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
+                  </div>
+                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow" style={{animationDelay: "1s"}}>
+                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
+                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
+                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
+                  </div>
+                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow" style={{animationDelay: "1.5s"}}>
+                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
+                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
+                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="text-center space-y-4 bg-gradient-to-r from-orange-50/80 to-red-50/80 dark:from-orange-950/20 dark:to-red-950/20 border border-border/30 rounded-2xl p-6 sm:p-8 mx-4 backdrop-blur-sm shadow-xl animate-in slide-in-from-bottom-4 duration-1000 delay-1200 hover:shadow-2xl transition-all hover:scale-[1.02]">
-          <div className="space-y-3">
-            <h2 className="text-lg sm:text-xl font-bold text-foreground animate-pulse">{t('home.readyToStart')}</h2>
-            <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              {t('home.joinThousands')}
+        {/* Final CTA - Clean */}
+        <div className="relative rounded-2xl p-1 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 opacity-50"></div>
+          <div className="relative bg-card/50 backdrop-blur-md border border-white/10 rounded-[15px] p-8 md:p-10 text-center space-y-6">
+            <h2 className="text-2xl md:text-3xl font-bold">Ready to Find Your Match?</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
+              Stop guessing. Start executing with a clear strategy.
             </p>
-          </div>
-          <Link href="/quiz">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto group hover:scale-110 hover:-translate-y-2"
-            >
-              {t('home.takeQuizNow')}
-              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform duration-200 animate-bounce" />
-            </Button>
-          </Link>
-          <div className="mt-3 sm:mt-4 flex justify-center">
-            <Disclaimer variant="subtle" />
+            <div className="pt-2">
+              <Link href="/quiz">
+                <Button 
+                  variant="neon" 
+                  size="lg" 
+                  className="h-12 px-8 rounded-full text-base font-semibold shadow-[0_0_20px_hsla(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsla(var(--primary)/0.5)] hover:scale-105 transition-all duration-300"
+                >
+                  Start Quiz Now
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+            <div className="pt-2 opacity-70">
+              <Disclaimer variant="subtle" />
+            </div>
           </div>
         </div>
+
       </main>
     </div>
   )

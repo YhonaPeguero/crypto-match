@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Stylized "B" with heart -->
+  <path d="M16 12 L16 52 L40 52 Q48 52 48 44 L48 36 Q48 28 40 28 Q48 28 48 20 L48 12 Q48 12 40 12 Z" 
+        fill="#0052FF"/>
+  <path d="M32 38 Q28 34 26 32 Q24 30 26 28 Q28 26 32 30 Q36 26 38 28 Q40 30 38 32 Q36 34 32 38 Z" 
+        fill="#0052FF" opacity="0.9"/>
+</svg>

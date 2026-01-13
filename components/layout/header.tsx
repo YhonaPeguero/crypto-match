@@ -6,7 +6,7 @@ import Image from "next/image"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { BaseHeaderButton } from "@/components/wallet/base-header-button"
+// Wallet connection removed - BaseMatch is non-custodial
 // import { LanguageSelector } from "@/components/language/language-selector"
 
 export function Header() {
@@ -27,9 +27,9 @@ export function Header() {
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
-              <Image src="/logo.png" alt="CryptoMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
-              <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                CryptoMatch
+              <Image src="/basematch-icon.svg" alt="BaseMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
+              <span className="text-xl font-bold text-[#0052FF]">
+                BaseMatch
               </span>
             </Link>
             <div className="flex items-center gap-3">
@@ -48,21 +48,27 @@ export function Header() {
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
-            <Image src="/logo.png" alt="CryptoMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
-            <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-              CryptoMatch
-            </span>
+              <Image src="/basematch-icon.svg" alt="BaseMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
+              <span className="text-xl font-bold text-[#0052FF]">
+                BaseMatch
+              </span>
           </Link>
 
           <div className="flex items-center gap-3">
-            {/* <LanguageSelector /> */}
-            <BaseHeaderButton />
+            <Link href="/hub">
+              <Button
+                variant="ghost-tech"
+                className="hidden sm:flex h-10 px-4 rounded-xl hover:bg-accent transition-all duration-200 hover:scale-105"
+              >
+                Hub
+              </Button>
+            </Link>
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
               className="h-10 w-10 rounded-xl hover:bg-accent transition-all duration-200 hover:scale-110"
-              aria-label={resolvedTheme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+              aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
               {resolvedTheme === "dark" ? (
                 <Sun className="h-5 w-5 transition-all duration-300 hover:rotate-180" />
@@ -70,7 +76,7 @@ export function Header() {
                 <Moon className="h-5 w-5 transition-all duration-300 hover:rotate-12" />
               )}
               <span className="sr-only">
-                {resolvedTheme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+                {resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
               </span>
             </Button>
           </div>

@@ -73,62 +73,77 @@ export function ShareResults({ results }: ShareResultsProps) {
   }
 
   return (
-    <Card className="bg-card/50 backdrop-blur border-0 shadow-lg">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
-          <Share2 className="h-5 w-5" />
+    <Card className="glass-panel border-primary/20 shadow-xl">
+      <CardHeader className="pb-6">
+        <CardTitle className="flex items-center gap-3 text-xl md:text-2xl font-bold">
+          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+            <Share2 className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+          </div>
           Comparte Tus Resultados
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <p className="text-sm text-muted-foreground">
+      <CardContent className="space-y-6">
+        <p className="text-base md:text-lg text-muted-foreground text-center max-w-2xl mx-auto">
           ¡Ayuda a otros a descubrir su estrategia crypto perfecta compartiendo este quiz!
         </p>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <Button
-            variant="outline"
-            size="sm"
+            variant="ghost-tech"
+            size="lg"
             onClick={handleTwitterShare}
-            className="flex items-center gap-2 bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-neutral-100"
+            className="flex flex-col items-center gap-2 h-auto py-4 hover:scale-105 transition-all duration-300 hover:border-primary/50"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
-              <path d="M18.244 2H21.5l-7.52 8.59L23.5 22h-7.31l-5.72-6.61L3.5 22H.244l8.07-9.22L.5 2h7.31l5.18 5.99L18.244 2Zm-1.28 18h2.02L7.12 4h-2.02l11.864 16Z"/>
-            </svg>
-            <span className="hidden sm:inline"></span>
-            <span className="sm:hidden"></span>
+            <div className="p-3 rounded-xl bg-black/20 border border-white/10 group-hover:bg-black/30 transition-colors">
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-current">
+                <path d="M18.244 2H21.5l-7.52 8.59L23.5 22h-7.31l-5.72-6.61L3.5 22H.244l8.07-9.22L.5 2h7.31l5.18 5.99L18.244 2Zm-1.28 18h2.02L7.12 4h-2.02l11.864 16Z"/>
+              </svg>
+            </div>
+            <span className="text-sm font-medium">X / Twitter</span>
           </Button>
 
           <Button
-            variant="outline"
-            size="sm"
+            variant="ghost-tech"
+            size="lg"
             onClick={handleFarcasterShare}
-            className="flex items-center gap-2 bg-transparent hover:bg-[#855DCD]/10 text-xs sm:text-sm text-[#855DCD]"
+            className="flex flex-col items-center gap-2 h-auto py-4 hover:scale-105 transition-all duration-300 hover:border-secondary/50"
           >
-            <img src="https://warpcast.com/favicon.ico" alt="Farcaster" className="h-4 w-4 rounded-sm" />
-            <span className="hidden sm:inline">Farcaster</span>
-            <span className="sm:hidden">FC</span>
+            <div className="p-3 rounded-xl bg-[#855DCD]/10 border border-[#855DCD]/20 group-hover:bg-[#855DCD]/20 transition-colors">
+              <img src="https://warpcast.com/favicon.ico" alt="Farcaster" className="h-5 w-5 rounded-sm" />
+            </div>
+            <span className="text-sm font-medium">Farcaster</span>
           </Button>
 
           <Button
-            variant="outline"
-            size="sm"
+            variant="ghost-tech"
+            size="lg"
             onClick={handleCopyLink}
-            className="flex items-center gap-2 bg-transparent hover:bg-green-50 dark:hover:bg-green-950/20 text-xs sm:text-sm text-green-600"
+            className={`flex flex-col items-center gap-2 h-auto py-4 transition-all duration-300 ${
+              copied 
+                ? "border-green-500/50 bg-green-500/10 scale-105" 
+                : "hover:scale-105 hover:border-primary/50"
+            }`}
           >
-            <Link2 className="h-4 w-4" />
-            {copied ? "¡Copiado!" : "Copiar"}
+            <div className={`p-3 rounded-xl border transition-colors ${
+              copied 
+                ? "bg-green-500/20 border-green-500/30" 
+                : "bg-white/5 border-white/10 group-hover:bg-white/10"
+            }`}>
+              <Link2 className={`h-5 w-5 ${copied ? "text-green-500" : ""}`} />
+            </div>
+            <span className="text-sm font-medium">{copied ? "¡Copiado!" : "Copiar Link"}</span>
           </Button>
 
           <Button
-            variant="outline"
-            size="sm"
+            variant="ghost-tech"
+            size="lg"
             onClick={handleDownloadResults}
-            className="flex items-center gap-2 bg-transparent hover:bg-purple-50 dark:hover:bg-purple-950/20 text-xs sm:text-sm"
+            className="flex flex-col items-center gap-2 h-auto py-4 hover:scale-105 transition-all duration-300 hover:border-primary/50"
           >
-            <Download className="h-4 w-4" />
-            <span className="hidden sm:inline">Descargar</span>
-            <span className="sm:hidden">PDF</span>
+            <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors">
+              <Download className="h-5 w-5" />
+            </div>
+            <span className="text-sm font-medium">Descargar</span>
           </Button>
         </div>
       </CardContent>

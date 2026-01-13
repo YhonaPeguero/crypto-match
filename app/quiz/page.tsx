@@ -106,13 +106,10 @@ export default function QuizPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+      <div className="min-h-screen bg-background relative overflow-hidden">
         <Header />
-        <div className="container mx-auto px-4 py-12 flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Cargando quiz...</p>
-          </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-primary shadow-[0_0_15px_rgba(var(--primary),0.5)]"></div>
         </div>
       </div>
     )
@@ -120,22 +117,26 @@ export default function QuizPage() {
 
   if (!currentQuestion) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+      <div className="min-h-screen bg-background relative">
         <Header />
-        <div className="container mx-auto px-4 py-12 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-muted-foreground">Quiz no encontrado</p>
-          </div>
+        <div className="container mx-auto px-4 py-12 text-center text-muted-foreground">
+          Quiz no encontrado
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Background Ambience */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] animate-pulse-slow"></div>
+        <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[80px] animate-pulse-slow" style={{animationDelay: "1.5s"}}></div>
+      </div>
+
       <Header />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-4xl mx-auto space-y-8">
           <ProgressBar currentStep={currentStep + 1} totalSteps={QUIZ_QUESTIONS.length} />
 

@@ -20,7 +20,7 @@ export function Disclaimer({ className, variant = "subtle", text, ...props }: Di
   return (
     <div className={cn(base, styles, className)} {...props}>
       <ShieldAlert className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-orange-600" />
-      <span>{text ?? "NFA • No es recomendación de inversión. Haz tu propia investigación."}</span>
+      <span>{text ?? "NFA • Not investment advice. Do your own research."}</span>
     </div>
   )
 }
