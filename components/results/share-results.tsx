@@ -14,7 +14,7 @@ export function ShareResults({ results }: ShareResultsProps) {
   const [copied, setCopied] = useState(false)
 
   const primaryResult = results.find((r) => r.isPrimary)
-  const shareText = `¡Acabo de descubrir mi estrategia crypto perfecta: ${primaryResult?.area.name}! Toma el quiz para encontrar la tuya.`
+  const shareText = `I just discovered my perfect crypto strategy: ${primaryResult?.area.name}! Take the quiz to find yours.`
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (typeof window !== "undefined" ? window.location.origin : "")
   const shareUrl = `${siteUrl}/results`
 
@@ -36,7 +36,7 @@ export function ShareResults({ results }: ShareResultsProps) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2200)
     } catch (error) {
-      console.error("Error al copiar enlace:", error)
+      console.error("Error copying link:", error)
     }
   }
 
@@ -53,11 +53,11 @@ export function ShareResults({ results }: ShareResultsProps) {
   const handleDownloadResults = () => {
     const resultsData = {
       timestamp: new Date().toISOString(),
-      recomendacionPrincipal: primaryResult?.area.name,
-      todasLasRecomendaciones: results.map((r) => ({
-        nombre: r.area.name,
-        puntuacion: r.score,
-        descripcion: r.area.description,
+      primaryRecommendation: primaryResult?.area.name,
+      allRecommendations: results.map((r) => ({
+        name: r.area.name,
+        score: r.score,
+        description: r.area.description,
       })),
     }
 
@@ -65,7 +65,7 @@ export function ShareResults({ results }: ShareResultsProps) {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = "cryptomatch-resultados.json"
+    a.download = "basematch-results.json"
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -79,12 +79,12 @@ export function ShareResults({ results }: ShareResultsProps) {
           <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
             <Share2 className="h-5 w-5 md:h-6 md:w-6 text-primary" />
           </div>
-          Comparte Tus Resultados
+          Share Your Results
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <p className="text-base md:text-lg text-muted-foreground text-center max-w-2xl mx-auto">
-          ¡Ayuda a otros a descubrir su estrategia crypto perfecta compartiendo este quiz!
+          Help others discover their perfect crypto strategy by sharing this quiz!
         </p>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -131,7 +131,7 @@ export function ShareResults({ results }: ShareResultsProps) {
             }`}>
               <Link2 className={`h-5 w-5 ${copied ? "text-green-500" : ""}`} />
             </div>
-            <span className="text-sm font-medium">{copied ? "¡Copiado!" : "Copiar Link"}</span>
+            <span className="text-sm font-medium">{copied ? "Copied!" : "Copy Link"}</span>
           </Button>
 
           <Button
@@ -143,7 +143,7 @@ export function ShareResults({ results }: ShareResultsProps) {
             <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors">
               <Download className="h-5 w-5" />
             </div>
-            <span className="text-sm font-medium">Descargar</span>
+            <span className="text-sm font-medium">Download</span>
           </Button>
         </div>
       </CardContent>

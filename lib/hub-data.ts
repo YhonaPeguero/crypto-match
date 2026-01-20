@@ -1,4 +1,4 @@
-export type MiniAppCategory = 'gratis' | 'paga-baja' | 'social' | 'defi' | 'nft'
+export type MiniAppCategory = 'free' | 'low-cost' | 'social' | 'defi' | 'nft'
 
 export interface MiniApp {
   id: string
@@ -17,71 +17,71 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'mint-fun',
     name: 'mint.fun',
-    description: 'Free mints NFT en Base. Descubre y mintea NFTs gratuitos de forma sencilla.',
+    description: 'Free NFT mints on Base. Discover and mint free NFTs easily.',
     url: 'https://mint.fun/base',
     twitterHandle: '@mintdotfun',
-    category: 'gratis',
+    category: 'free',
     isGasless: true,
-    tags: ['nft', 'gratis', 'mint'],
+    tags: ['nft', 'free', 'mint'],
     featured: true,
   },
   {
     id: 'zora',
     name: 'Zora',
-    description: 'Mints de arte y NFT. Plataforma creativa para artistas y coleccionistas.',
+    description: 'Art and NFT mints. A creative platform for artists and collectors.',
     url: 'https://zora.co',
     twitterHandle: '@ourzora',
-    category: 'gratis',
+    category: 'free',
     isGasless: true,
-    tags: ['nft', 'arte', 'creativo'],
+    tags: ['nft', 'art', 'creative'],
     featured: true,
   },
   {
     id: 'basepaint',
     name: 'BasePaint',
-    description: 'Arte colaborativo diario. Contribuye a obras de arte colectivas onchain.',
+    description: 'Daily collaborative art. Contribute to collective onchain artworks.',
     url: 'https://basepaint.xyz',
     twitterHandle: '@basepaint_',
-    category: 'gratis',
+    category: 'free',
     isGasless: true,
-    tags: ['arte', 'colaborativo', 'nft'],
+    tags: ['art', 'collaborative', 'nft'],
   },
   {
     id: 'paragraph',
     name: 'Paragraph',
-    description: 'Collect posts onchain. Guarda y colecciona contenido onchain de forma permanente.',
+    description: 'Collect posts onchain. Permanently save and collect onchain content.',
     url: 'https://paragraph.xyz',
     twitterHandle: '@paragraph_xyz',
-    category: 'gratis',
+    category: 'free',
     isGasless: true,
-    tags: ['social', 'contenido', 'onchain'],
+    tags: ['social', 'content', 'onchain'],
   },
   {
     id: 'sound-protocol',
     name: 'Sound Protocol',
-    description: 'Mint música onchain. Descubre y colecciona música como NFT.',
+    description: 'Mint music onchain. Discover and collect music as NFTs.',
     url: 'https://www.sound.xyz',
     twitterHandle: '@soundprotocol',
-    category: 'gratis',
+    category: 'free',
     isGasless: true,
-    tags: ['música', 'nft', 'audio'],
+    tags: ['music', 'nft', 'audio'],
   },
   {
     id: '0xppl',
     name: '0xPPL',
-    description: 'Social onchain feed. Conecta con la comunidad crypto en Base.',
+    description: 'Onchain social feed. Connect with the Base crypto community.',
     url: 'https://0xppl.com',
     twitterHandle: '@0xppl',
-    category: 'gratis',
+    category: 'free',
     isGasless: true,
-    tags: ['social', 'feed', 'comunidad'],
+    tags: ['social', 'feed', 'community'],
   },
   
   // Paga Baja - DeFi
   {
     id: 'aerodrome',
     name: 'Aerodrome Finance',
-    description: 'Swaps y liquidity en Base. DEX principal con bajos fees y alta liquidez.',
+    description: 'Swaps and liquidity on Base. Leading DEX with low fees and high liquidity.',
     url: 'https://aerodrome.finance',
     twitterHandle: '@AerodromeFi',
     category: 'defi',
@@ -92,7 +92,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'uniswap',
     name: 'Uniswap',
-    description: 'Swaps simples y seguros. El DEX más popular, ahora en Base.',
+    description: 'Simple and secure swaps. The most popular DEX, now on Base.',
     url: 'https://app.uniswap.org/swap?chain=base',
     twitterHandle: '@Uniswap',
     category: 'defi',
@@ -102,7 +102,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'aave',
     name: 'Aave',
-    description: 'Lending y borrowing. Presta y pide prestado cripto con seguridad.',
+    description: 'Lending and borrowing. Lend and borrow crypto securely.',
     url: 'https://app.aave.com/?marketName=proto_base_v3',
     twitterHandle: '@aave',
     category: 'defi',
@@ -112,7 +112,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'compound',
     name: 'Compound',
-    description: 'Lending protocol. Genera yield prestando tus criptos.',
+    description: 'Lending protocol. Generate yield by lending your crypto assets.',
     url: 'https://app.compound.finance',
     twitterHandle: '@compoundfinance',
     category: 'defi',
@@ -122,7 +122,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'moonwell',
     name: 'Moonwell',
-    description: 'Yield y lending optimizado. Protocolo DeFi con altos rendimientos.',
+    description: 'Optimized yield and lending. DeFi protocol with attractive returns.',
     url: 'https://app.moonwell.fi',
     twitterHandle: '@MoonwellDeFi',
     category: 'defi',
@@ -132,7 +132,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'seamless',
     name: 'Seamless Protocol',
-    description: 'Borrow y lend sin fricción. DeFi simplificado para todos.',
+    description: 'Frictionless borrowing and lending. DeFi simplified for everyone.',
     url: 'https://www.seamless.fi',
     twitterHandle: '@SeamlessFi',
     category: 'defi',
@@ -142,7 +142,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'extra-finance',
     name: 'Extra Finance',
-    description: 'Farming de yield. Optimiza tus rendimientos con estrategias avanzadas.',
+    description: 'Yield farming. Optimize returns with advanced strategies.',
     url: 'https://extra.fi',
     twitterHandle: '@extra_fi',
     category: 'defi',
@@ -152,7 +152,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'curve',
     name: 'Curve Finance',
-    description: 'Pools estables optimizados. Trading de stablecoins con bajas slippage.',
+    description: 'Optimized stable pools. Trade stablecoins with low slippage.',
     url: 'https://curve.fi/#/base/pools',
     twitterHandle: '@CurveFinance',
     category: 'defi',
@@ -164,7 +164,7 @@ export const MINI_APPS: MiniApp[] = [
   {
     id: 'warpcast',
     name: 'Warpcast',
-    description: 'Social + frames onchain. La red social crypto con frames interactivos.',
+    description: 'Social + onchain frames. The crypto social network with interactive frames.',
     url: 'https://warpcast.com',
     twitterHandle: '@warpcast',
     category: 'social',
@@ -175,13 +175,13 @@ export const MINI_APPS: MiniApp[] = [
 ]
 
 export const CATEGORIES: Record<MiniAppCategory, { label: string; color: string; icon: string }> = {
-  gratis: {
-    label: 'Gratis',
+  free: {
+    label: 'Free',
     color: 'hsl(142 76% 36%)',
     icon: '🎁',
   },
-  'paga-baja': {
-    label: 'Paga Baja',
+  'low-cost': {
+    label: 'Low Cost',
     color: 'hsl(38 92% 50%)',
     icon: '💰',
   },

@@ -28,7 +28,7 @@ export interface CryptoArea {
   difficulty: "beginner" | "intermediate" | "advanced"
 }
 
-export type UserLevel = 'principiante' | 'intermedio' | 'avanzado'
+export type UserLevel = 'beginner' | 'intermediate' | 'advanced'
 
 export interface QuizResult {
   area: CryptoArea

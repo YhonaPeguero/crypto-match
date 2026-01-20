@@ -1,9 +1,9 @@
-// Storage utilities para gamificación del Hub
+// Storage utilities for Hub gamification
 
 const STORAGE_KEY = 'cryptomatch-hub-stats'
 
 export interface HubStats {
-  appsExplored: string[] // IDs de apps visitadas
+  appsExplored: string[] // IDs of explored apps
   lastUpdated: string
 }
 
@@ -44,10 +44,10 @@ export function getAppsExploredCount(): number {
 }
 
 export function getOnchainActivityScore(): number {
-  // Simula actividad onchain basada en apps exploradas
-  // Cada app explorada = ~2-3 transacciones sugeridas
+  // Simulates onchain activity based on explored apps
+  // Each explored app = ~2-3 suggested transactions
   const appsCount = getAppsExploredCount()
-  return appsCount * 2.5 // Promedio de 2.5 txns por app
+  return appsCount * 2.5 // Average of 2.5 txns per app
 }
 
 export function resetHubStats(): void {

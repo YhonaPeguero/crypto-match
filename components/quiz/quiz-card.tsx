@@ -57,7 +57,7 @@ export function QuizCard({
       {/* Decorative Glow Mejorado */}
       <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 rounded-3xl blur-2xl opacity-40 animate-pulse-slow"></div>
       
-      <Card className="glass-panel border-white/10 shadow-2xl relative backdrop-blur-3xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <Card className="glass-panel border-border shadow-2xl relative backdrop-blur-3xl animate-in fade-in slide-in-from-bottom-4 duration-500 dark:border-white/10">
         <CardHeader className="text-center space-y-8 pb-10 md:pb-12 pt-10 md:pt-12 px-6 sm:px-12">
             {/* Icono animado */}
             <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center mb-4 shadow-lg border border-primary/20 animate-pulse-slow">
@@ -65,7 +65,7 @@ export function QuizCard({
             </div>
             
           <CardTitle 
-            className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-foreground drop-shadow-sm" 
+            className="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-foreground drop-shadow-sm" 
             id="question-title"
           >
             {question.question}
@@ -90,7 +90,7 @@ export function QuizCard({
           {renderQuestionInput()}
         </CardContent>
 
-        <CardFooter className="flex justify-between items-center px-6 sm:px-12 pb-10 pt-4 border-t border-white/5">
+        <CardFooter className="flex justify-between items-center px-6 sm:px-12 pb-10 pt-4 border-t border-border/60 dark:border-white/5">
           <Button
             variant="ghost-tech"
             onClick={onPrevious}

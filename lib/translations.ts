@@ -264,27 +264,27 @@ export const translations: Record<Language, Translations> = {
     },
     
     home: {
-      discoverStrategy: 'Discover your ideal crypto strategy',
+      discoverStrategy: 'Discover your perfect crypto strategy',
       findPerfectStrategy: 'Find Your Perfect',
-      cryptoPerfect: 'Crypto Strategy',
-      takeQuiz: 'Take our personalized quiz and discover the cryptocurrency approach that best fits your goals, risk tolerance, and experience level.',
+      cryptoPerfect: 'Base Strategy Match',
+      takeQuiz: 'Take our personalized quiz to discover the crypto strategy that best matches your goals, risk tolerance, and experience level.',
       personalizedResults: 'Personalized Results',
-      personalizedResultsDesc: 'Get recommendations tailored to your specific situation and objectives',
+      personalizedResultsDesc: 'Get recommendations tailored to your specific situation and objectives.',
       expertInsights: 'Expert Insights',
-      expertInsightsDesc: 'Based on current market strategies and conditions',
+      expertInsightsDesc: 'Based on current market strategies and onchain conditions.',
       quickEasy: 'Quick & Easy',
-      quickEasyDesc: 'Simple questions that take just a few minutes to complete',
+      quickEasyDesc: 'Simple questions that take just a few minutes to complete.',
       anonymous: '100% Anonymous',
-      anonymousDesc: 'We don\'t require registration or personal information. Your responses are completely private.',
-      activeCommunity: 'Active Community',
-      activeCommunityDesc: 'Join thousands of people who have already discovered their path in the crypto world.',
-      readyToStart: 'Ready to Start?',
-      joinThousands: 'Join thousands of people who have discovered their ideal crypto strategy',
+      anonymousDesc: 'No registration or personal information required. Your responses are private.',
+      activeCommunity: 'Growing Community',
+      activeCommunityDesc: 'Join thousands already discovering their path in the Base ecosystem.',
+      readyToStart: 'Ready to Begin?',
+      joinThousands: 'Find the ideal strategy to boost your onchain activity today.',
       takeQuizNow: 'Take the Quiz Now',
       startQuiz: 'Start Quiz',
-      takesMinutes: 'Takes 2-3 minutes',
+      takesMinutes: 'Takes 2 min',
       noRegistration: 'No registration',
-      starRating: '4.8/5 (2.3k+)'
+      starRating: '4.8/5 (2.3k+ reviews)'
     },
     
     quiz: {
@@ -293,41 +293,41 @@ export const translations: Record<Language, Translations> = {
       next: 'Next',
       previous: 'Previous',
       seeResults: 'See Results',
-      completeQuiz: 'Complete quiz and get results',
+      completeQuiz: 'Complete quiz to get results',
       goToNext: 'Go to next question',
       goToPrevious: 'Go to previous question',
-      calculatingStrategy: 'Calculating your perfect crypto strategy...'
+      calculatingStrategy: 'Analyzing your perfect match...'
     },
     
     results: {
-      strategyResults: 'Your Crypto Strategy Results',
-      yourBestOption: 'Your Best Option',
-      basedOnAnswers: 'Based on your answers, this strategy aligns perfectly with your goals, risk tolerance, and experience level.',
+      strategyResults: 'Your Strategy Match',
+      yourBestOption: 'Your Best Match',
+      basedOnAnswers: 'Based on your profile, this strategy aligns with your goals and risk tolerance on Base.',
       backToHome: 'Back to Home',
-      restartTest: 'Restart Test',
-      readyToStart: 'Ready to Start?',
-      nextStep: 'Now that you know your ideal crypto strategy, take the next step and begin your journey. Always remember to do your own research and never invest more than you can afford to lose.',
+      restartTest: 'Restart Quiz',
+      readyToStart: 'Ready to Execute?',
+      nextStep: 'Take the next step in your onchain journey. Remember to do your own research and never invest more than you can afford to lose.',
       getExpertMentor: 'Get Expert Mentor',
       learnMoreAbout: 'Learn More About',
       exploreAllStrategies: 'Explore All Strategies',
-      shareResults: 'Share Your Results',
-      helpOthers: 'Help others discover their perfect crypto strategy by sharing this quiz!'
+      shareResults: 'Share Your Match',
+      helpOthers: 'Help others find their perfect strategy by sharing this quiz!'
     },
     
     mentors: {
       expertMentors: 'Expert Mentors',
-      connectWithMentors: 'Connect with verified mentors who will help you implement your ideal crypto strategy. Pay directly with USDC using Base Network.',
+      connectWithMentors: 'Connect with verified mentors to help you implement your strategy. Pay directly with USDC on Base.',
       mentors: 'Mentors',
       averageRating: 'Average Rating',
       reviews: 'Reviews',
       verified: 'Verified',
-      whyChooseMentors: 'Why choose our mentors?',
-      verifiedMentors: 'Verified',
-      verifiedMentorsDesc: 'All our mentors are verified and have proven experience',
+      whyChooseMentors: 'Why connect with a mentor?',
+      verifiedMentors: 'Verified Experts',
+      verifiedMentorsDesc: 'All mentors are vetted with proven onchain experience.',
       usdcPayments: 'USDC Payments',
-      usdcPaymentsDesc: 'Pay directly with crypto using Base Network, no intermediaries',
-      instantAccess: 'Instant Access',
-      instantAccessDesc: 'Connect instantly with your mentor after payment',
+      usdcPaymentsDesc: 'Pay directly via Base Network—secure and peer-to-peer.',
+      instantAccess: 'Direct Connection',
+      instantAccessDesc: 'Get in touch with your mentor immediately after payment.',
       all: 'All',
       defi: 'DeFi',
       airdrops: 'Airdrops',
@@ -335,8 +335,8 @@ export const translations: Record<Language, Translations> = {
       futures: 'Futures',
       nfts: 'NFTs',
       memeCoins: 'Meme Coins',
-      noMentorsAvailable: 'No mentors available',
-      noMentorsDesc: 'We didn\'t find mentors for the selected strategy. Try another category.',
+      noMentorsAvailable: 'No mentors found',
+      noMentorsDesc: 'We couldn\'t find mentors for this specific strategy yet. Try another category.',
       connectWallet: 'Connect Wallet',
       connecting: 'Connecting...',
       baseAccountConnected: 'Base Account Connected',
@@ -364,10 +364,10 @@ export const translations: Record<Language, Translations> = {
     
     disclaimer: {
       nfa: 'NFA',
-      nfy: 'NFY',
+      nfy: 'DYOR',
       notFinancialAdvice: 'Not financial advice',
-      notFinancialAdviceDesc: 'This information is for educational purposes only and does not constitute financial advice.',
-      notFinancialAdviceDescLong: 'This information is for educational purposes only and does not constitute financial advice. Always do your own research before investing.'
+      notFinancialAdviceDesc: 'This information is for educational purposes only.',
+      notFinancialAdviceDescLong: 'This tool provides educational information only and does not constitute financial advice. Always do your own research.'
     }
   }
 }

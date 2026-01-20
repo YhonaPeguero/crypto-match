@@ -51,8 +51,8 @@ export default function HubPage() {
 
   const categoryIcons: Record<MiniAppCategory | 'all', React.ReactNode> = {
     'all': <Grid3x3 className="w-4 h-4" />,
-    'gratis': <Gift className="w-4 h-4" />,
-    'paga-baja': <DollarSign className="w-4 h-4" />,
+    'free': <Gift className="w-4 h-4" />,
+    'low-cost': <DollarSign className="w-4 h-4" />,
     'social': <Users className="w-4 h-4" />,
     'defi': <Coins className="w-4 h-4" />,
     'nft': <ImageIcon className="w-4 h-4" />,
@@ -60,8 +60,8 @@ export default function HubPage() {
 
   const categories: Array<{ id: MiniAppCategory | 'all'; label: string; icon: React.ReactNode }> = [
     { id: 'all', label: 'All', icon: categoryIcons['all'] },
-    { id: 'gratis', label: 'Free', icon: categoryIcons['gratis'] },
-    { id: 'paga-baja', label: 'Low Cost', icon: categoryIcons['paga-baja'] },
+    { id: 'free', label: 'Free', icon: categoryIcons['free'] },
+    { id: 'low-cost', label: 'Low Cost', icon: categoryIcons['low-cost'] },
     { id: 'social', label: 'Social', icon: categoryIcons['social'] },
     { id: 'defi', label: 'DeFi', icon: categoryIcons['defi'] },
     { id: 'nft', label: 'NFT', icon: categoryIcons['nft'] },

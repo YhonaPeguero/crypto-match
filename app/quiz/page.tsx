@@ -120,7 +120,7 @@ export default function QuizPage() {
       <div className="min-h-screen bg-background relative">
         <Header />
         <div className="container mx-auto px-4 py-12 text-center text-muted-foreground">
-          Quiz no encontrado
+          Quiz not found
         </div>
       </div>
     )

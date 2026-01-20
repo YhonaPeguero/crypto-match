@@ -10,16 +10,11 @@ import Link from "next/link"
 // import { LanguageSelector } from "@/components/language/language-selector"
 
 export function Header() {
-  const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  const toggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark")
-  }
 
   if (!mounted) {
     return (
@@ -28,7 +23,7 @@ export function Header() {
           <div className="flex h-16 items-center justify-between">
             <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
               <Image src="/basematch-icon.svg" alt="BaseMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
-              <span className="text-xl font-bold text-[#0052FF]">
+              <span className="text-xl font-bold text-primary">
                 BaseMatch
               </span>
             </Link>
@@ -49,7 +44,7 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
               <Image src="/basematch-icon.svg" alt="BaseMatch" width={36} height={36} className="h-9 w-9 object-contain rounded-md" />
-              <span className="text-xl font-bold text-[#0052FF]">
+              <span className="text-xl font-bold text-primary">
                 BaseMatch
               </span>
           </Link>
@@ -63,22 +58,6 @@ export function Header() {
                 Hub
               </Button>
             </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="h-10 w-10 rounded-xl hover:bg-accent transition-all duration-200 hover:scale-110"
-              aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {resolvedTheme === "dark" ? (
-                <Sun className="h-5 w-5 transition-all duration-300 hover:rotate-180" />
-              ) : (
-                <Moon className="h-5 w-5 transition-all duration-300 hover:rotate-12" />
-              )}
-              <span className="sr-only">
-                {resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              </span>
-            </Button>
           </div>
         </div>
       </div>

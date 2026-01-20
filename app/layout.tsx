@@ -19,8 +19,7 @@ interface LayoutProps {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  // Por defecto usar español, el middleware se encarga de la detección de idioma
-  return generateMetadataFunction('es')
+  return generateMetadataFunction('en')
 }
 
 export default function RootLayout({
@@ -29,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <style>{`
 html {
@@ -38,9 +37,9 @@ html {
   --font-mono: ${GeistMono.variable};
 }
         `}</style>
-        <link rel="icon" href="/logo.png" sizes="any" />
-        <link rel="apple-touch-icon" href="/logo.png" />
-        <link rel="shortcut icon" href="/logo.png" />
+        <link rel="icon" href="/basematch-icon.svg" sizes="any" />
+        <link rel="apple-touch-icon" href="/basematch-icon.svg" />
+        <link rel="shortcut icon" href="/basematch-icon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
@@ -49,7 +48,7 @@ html {
             <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                <p className="text-muted-foreground">Cargando CryptoMatch...</p>
+                <p className="text-muted-foreground">Loading BaseMatch...</p>
               </div>
             </div>
           }>

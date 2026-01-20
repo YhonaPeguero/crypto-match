@@ -6,83 +6,83 @@ interface AreaScore {
   score: number
 }
 
-export type UserLevel = 'principiante' | 'intermedio' | 'avanzado'
+export type UserLevel = 'beginner' | 'intermediate' | 'advanced'
 
 export interface TimeRange {
-  principiante: string
-  intermedio: string
-  avanzado: string
+  beginner: string
+  intermediate: string
+  advanced: string
 }
 
 export interface CapitalRange {
-  principiante: string
-  intermedio: string
-  avanzado: string
+  beginner: string
+  intermediate: string
+  advanced: string
 }
 
 export const TIME_RANGES: Record<string, TimeRange> = {
   spotHolding: {
-    principiante: '1–2 horas al mes',
-    intermedio: '1–2 horas a la semana',
-    avanzado: '10–15 min al día + 2–3 horas al mes'
+    beginner: '1–2 hours per month',
+    intermediate: '1–2 hours per week',
+    advanced: '10–15 min per day + 2–3 hours per month'
   },
   airdrops: {
-    principiante: '2–4 horas a la semana',
-    intermedio: '5–10 horas a la semana',
-    avanzado: '2–4 horas al día'
+    beginner: '2–4 hours per week',
+    intermediate: '5–10 hours per week',
+    advanced: '2–4 hours per day'
   },
   defi: {
-    principiante: '2–3 horas a la semana',
-    intermedio: '5–7 horas a la semana',
-    avanzado: '1–2 horas al día'
+    beginner: '2–3 hours per week',
+    intermediate: '5–7 hours per week',
+    advanced: '1–2 hours per day'
   },
   futuresTrading: {
-    principiante: '1–2 horas al día',
-    intermedio: '3–5 horas al día',
-    avanzado: '5+ horas al día'
+    beginner: '1–2 hours per day',
+    intermediate: '3–5 hours per day',
+    advanced: '5+ hours per day'
   },
   memeCoins: {
-    principiante: '30–60 min al día',
-    intermedio: '1–3 horas al día',
-    avanzado: '3+ horas al día'
+    beginner: '30–60 min per day',
+    intermediate: '1–3 hours per day',
+    advanced: '3+ hours per day'
   },
   nfts: {
-    principiante: '2–4 horas a la semana',
-    intermedio: '1–2 horas al día',
-    avanzado: '3+ horas al día'
+    beginner: '2–4 hours per week',
+    intermediate: '1–2 hours per day',
+    advanced: '3+ hours per day'
   }
 }
 
 export const CAPITAL_RANGES: Record<string, CapitalRange> = {
   spotHolding: {
-    principiante: '$100–$500',
-    intermedio: '$1,000–$5,000',
-    avanzado: '$10,000+'
+    beginner: '$100–$500',
+    intermediate: '$1,000–$5,000',
+    advanced: '$10,000+'
   },
   airdrops: {
-    principiante: '$50–$200',
-    intermedio: '$500–$1,000',
-    avanzado: '$2,000+'
+    beginner: '$50–$200',
+    intermediate: '$500–$1,000',
+    advanced: '$2,000+'
   },
   defi: {
-    principiante: '$200–$500',
-    intermedio: '$1,000–$5,000',
-    avanzado: '$10,000+'
+    beginner: '$200–$500',
+    intermediate: '$1,000–$5,000',
+    advanced: '$10,000+'
   },
   futuresTrading: {
-    principiante: '$200–$1,000',
-    intermedio: '$1,000–$10,000',
-    avanzado: '$10,000+'
+    beginner: '$200–$1,000',
+    intermediate: '$1,000–$10,000',
+    advanced: '$10,000+'
   },
   memeCoins: {
-    principiante: '$50–$300',
-    intermedio: '$300–$2,000',
-    avanzado: '$2,000+'
+    beginner: '$50–$300',
+    intermediate: '$300–$2,000',
+    advanced: '$2,000+'
   },
   nfts: {
-    principiante: '$50–$500',
-    intermedio: '$500–$3,000',
-    avanzado: '$3,000+'
+    beginner: '$50–$500',
+    intermediate: '$500–$3,000',
+    advanced: '$3,000+'
   }
 }
 
@@ -93,7 +93,7 @@ export function determineUserLevel(responses: QuizResponse[]): UserLevel {
   
   let score = 0
   
-  // Experiencia
+  // Experience
   if (experienceAnswers?.value === 'Complete beginner - New to crypto') {
     score += 0
   } else if (experienceAnswers?.value === 'Basic knowledge - Understand wallet basics') {
@@ -117,7 +117,7 @@ export function determineUserLevel(responses: QuizResponse[]): UserLevel {
     score += 3
   }
   
-  // Comfort técnico
+  // Tech Comfort
   const techValue = typeof techAnswers?.value === 'number' ? techAnswers.value : Number(techAnswers?.value)
   if (techValue <= 2) {
     score += 0
@@ -129,18 +129,18 @@ export function determineUserLevel(responses: QuizResponse[]): UserLevel {
     score += 3
   }
   
-  // Determinar nivel basado en puntuación total (0-14)
+  // Determine level based on total score (0-14)
   if (score <= 4) {
-    return 'principiante'
+    return 'beginner'
   } else if (score <= 10) {
-    return 'intermedio'
+    return 'intermediate'
   } else {
-    return 'avanzado'
+    return 'advanced'
   }
 }
 
 export function calculateRecommendations(responses: QuizResponse[]): QuizResult[] {
-  // Determinar nivel del usuario
+  // Determine user level
   const userLevel = determineUserLevel(responses)
   
   // Initialize scores for each crypto area

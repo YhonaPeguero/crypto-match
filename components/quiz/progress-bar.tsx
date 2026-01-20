@@ -13,7 +13,7 @@ export function ProgressBar({ currentStep, totalSteps, className }: ProgressBarP
   const [animatedProgress, setAnimatedProgress] = useState(0)
   const progress = Math.round(((currentStep - 1) / totalSteps) * 100)
 
-  // Animación suave del progreso
+  // Smooth progress animation
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimatedProgress(progress)
@@ -39,19 +39,19 @@ export function ProgressBar({ currentStep, totalSteps, className }: ProgressBarP
         </div>
       </div>
       
-      {/* Barra de progreso mejorada con gradiente animado */}
+      {/* Enhanced progress bar with animated gradient */}
       <div className="relative">
         <div className="h-2.5 rounded-full bg-black/30 overflow-hidden backdrop-blur-sm">
           <div
             className="h-full rounded-full bg-gradient-to-r from-primary via-cyan-400 to-secondary transition-all duration-500 ease-out relative overflow-hidden"
             style={{ width: `${animatedProgress}%` }}
           >
-            {/* Efecto de brillo animado */}
+            {/* Animated shimmer effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
           </div>
         </div>
         
-        {/* Indicador de paso actual */}
+        {/* Current step indicator */}
         <div
           className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-primary border-2 border-background shadow-[0_0_12px_hsla(var(--primary)/0.6)] transition-all duration-500 ease-out"
           style={{ left: `calc(${animatedProgress}% - 8px)` }}

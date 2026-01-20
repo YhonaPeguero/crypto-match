@@ -12,14 +12,14 @@ import { trackEvent, ANALYTICS_EVENTS } from "@/lib/analytics"
 import { validateMentorData, sanitizeString, logSecurityEvent } from "@/lib/security"
 
 const STRATEGY_FILTERS = [
-  { id: "all", name: "Todos", count: MENTORS.length },
+  { id: "all", name: "All", count: MENTORS.length },
   { id: "defi", name: "DeFi", count: getMentorsByStrategy("defi").length },
   { id: "airdrops", name: "Airdrops", count: getMentorsByStrategy("airdrops").length },
   { id: "spotHolding", name: "Spot Trading", count: getMentorsByStrategy("spotHolding").length },
   { id: "futuresTrading", name: "Futures", count: getMentorsByStrategy("futuresTrading").length },
 ]
 
-export default function MentoresPage() {
+export default function MentorsPage() {
   const [selectedStrategy, setSelectedStrategy] = useState("all")
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null)
 
@@ -28,17 +28,17 @@ export default function MentoresPage() {
     : getMentorsByStrategy(selectedStrategy)
 
   const handlePaymentInitiated = (mentorId: string, amount: string) => {
-    // Validar datos antes de procesar
+    // Validate data before processing
     if (!validateMentorData({ id: mentorId, priceUSDC: parseFloat(amount) })) {
       logSecurityEvent('INVALID_PAYMENT_DATA', { mentorId, amount })
-      setPaymentStatus('Datos de pago inválidos')
+      setPaymentStatus('Invalid payment data')
       return
     }
 
     const sanitizedMentorId = sanitizeString(mentorId)
     const sanitizedAmount = sanitizeString(amount)
     
-    setPaymentStatus(`Pago de ${sanitizedAmount} USDC iniciado para mentor ${sanitizedMentorId}`)
+    setPaymentStatus(`Payment of ${sanitizedAmount} USDC initiated for mentor ${sanitizedMentorId}`)
     
     trackEvent(ANALYTICS_EVENTS.MENTOR_PAYMENT_INITIATED, {
       mentor_id: sanitizedMentorId,
@@ -64,31 +64,31 @@ export default function MentoresPage() {
           <div className="text-center space-y-6">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Users className="h-8 w-8 text-blue-500" />
-              <h1 className="text-3xl md:text-4xl font-bold">Mentores Expertos</h1>
+              <h1 className="text-3xl md:text-4xl font-bold">Expert Mentors</h1>
             </div>
             
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Conecta con mentores verificados que te ayudarán a implementar tu estrategia crypto ideal. 
-              Paga directamente con USDC usando Base Network.
+              Connect with verified mentors who will help you implement your ideal crypto strategy. 
+              Pay directly with USDC using Base Network.
             </p>
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
               <div className="text-center p-4 bg-card/50 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">{stats.totalMentors}</div>
-                <div className="text-sm text-muted-foreground">Mentores</div>
+                <div className="text-sm text-muted-foreground">Mentors</div>
               </div>
               <div className="text-center p-4 bg-card/50 rounded-lg">
                 <div className="text-2xl font-bold text-yellow-600">{stats.averageRating}</div>
-                <div className="text-sm text-muted-foreground">Rating Promedio</div>
+                <div className="text-sm text-muted-foreground">Avg Rating</div>
               </div>
               <div className="text-center p-4 bg-card/50 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">{stats.totalReviews}</div>
-                <div className="text-sm text-muted-foreground">Reseñas</div>
+                <div className="text-sm text-muted-foreground">Reviews</div>
               </div>
               <div className="text-center p-4 bg-card/50 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">{stats.verifiedMentors}</div>
-                <div className="text-sm text-muted-foreground">Verificados</div>
+                <div className="text-sm text-muted-foreground">Verified</div>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function MentoresPage() {
             <CardHeader>
               <CardTitle className="flex items-center justify-center gap-2 text-center">
                 <Shield className="h-6 w-6 text-green-500" />
-                <span className="text-lg md:text-xl">¿Por qué elegir nuestros mentores?</span>
+                <span className="text-lg md:text-xl">Why choose our mentors?</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -107,27 +107,27 @@ export default function MentoresPage() {
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto">
                     <Shield className="h-6 w-6 text-green-600" />
                   </div>
-                  <h3 className="font-semibold">Verificados</h3>
+                  <h3 className="font-semibold">Verified</h3>
                   <p className="text-sm text-muted-foreground">
-                    Todos nuestros mentores están verificados y tienen experiencia comprobada
+                    All our mentors are verified and have proven experience
                   </p>
                 </div>
                 <div className="text-center space-y-2">
                   <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto">
                     <DollarSign className="h-6 w-6 text-blue-600" />
                   </div>
-                  <h3 className="font-semibold">Pagos en USDC</h3>
+                  <h3 className="font-semibold">USDC Payments</h3>
                   <p className="text-sm text-muted-foreground">
-                    Paga directamente con crypto usando Base Network, sin intermediarios
+                    Pay directly with crypto using Base Network, no intermediaries
                   </p>
                 </div>
                 <div className="text-center space-y-2">
                   <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center mx-auto">
                     <Zap className="h-6 w-6 text-purple-600" />
                   </div>
-                  <h3 className="font-semibold">Acceso Inmediato</h3>
+                  <h3 className="font-semibold">Instant Access</h3>
                   <p className="text-sm text-muted-foreground">
-                    Conecta instantáneamente con tu mentor después del pago
+                    Connect instantly with your mentor after payment
                   </p>
                 </div>
               </div>
@@ -179,9 +179,9 @@ export default function MentoresPage() {
             <Card className="bg-card/50 backdrop-blur border-0 shadow-lg">
               <CardContent className="p-8 text-center">
                 <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No hay mentores disponibles</h3>
+                <h3 className="text-lg font-semibold mb-2">No mentors available</h3>
                 <p className="text-muted-foreground">
-                  No encontramos mentores para la estrategia seleccionada. Prueba con otra categoría.
+                  We couldn't find mentors for the selected strategy. Try another category.
                 </p>
               </CardContent>
             </Card>

@@ -80,7 +80,7 @@ export default function ResultsPage() {
         <div className="container mx-auto px-4 py-20 flex items-center justify-center relative z-10">
           <div className="text-center space-y-6">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary mx-auto shadow-[0_0_20px_rgba(var(--primary),0.5)]"></div>
-            <p className="text-xl text-primary font-medium animate-pulse">Analizando blockchain data...</p>
+            <p className="text-xl text-primary font-medium animate-pulse">Analyzing blockchain data...</p>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@ export default function ResultsPage() {
             <CardContent className="p-8 text-center space-y-6">
               <p className="text-destructive font-semibold">{error}</p>
               <Link href="/">
-                <Button variant="neon">Reiniciar</Button>
+                <Button variant="neon">Restart</Button>
               </Link>
             </CardContent>
           </Card>
@@ -132,10 +132,10 @@ export default function ResultsPage() {
               </div>
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  ¡Match Encontrado!
+                  Match Found!
                 </span>
               </h1>
-              <p className="text-xl text-muted-foreground">Tu Perfil Crypto</p>
+              <p className="text-xl text-muted-foreground">Your Crypto Profile</p>
             </div>
 
             {/* Card Principal Mejorada */}
@@ -150,7 +150,7 @@ export default function ResultsPage() {
                 <div className="flex items-center justify-center gap-3">
                   <Target className="h-7 w-7 text-primary animate-pulse" />
                   <h2 className="text-xl md:text-2xl font-bold text-primary tracking-wider uppercase">
-                    Mejor Coincidencia
+                    Best Match
                   </h2>
                 </div>
                 
@@ -171,9 +171,9 @@ export default function ResultsPage() {
                 
                 {/* Descripción */}
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                  Esta estrategia se alinea perfectamente con tu{" "}
-                  <span className="text-primary font-bold">tolerancia al riesgo</span> y{" "}
-                  <span className="text-secondary font-bold">objetivos</span>.
+                  This strategy aligns perfectly with your{" "}
+                  <span className="text-primary font-bold">risk tolerance</span> and{" "}
+                  <span className="text-secondary font-bold">goals</span>.
                 </p>
               </div>
             )}
@@ -184,12 +184,12 @@ export default function ResultsPage() {
             <Link href="/">
               <Button variant="ghost-tech" className="gap-2">
                 <ArrowLeft className="h-4 w-4" />
-                Volver al Inicio
+                Back to Home
               </Button>
             </Link>
             <Button onClick={handleRetakeQuiz} variant="ghost-tech" className="gap-2">
               <RotateCcw className="h-4 w-4" />
-              Reiniciar Test
+              Retake Quiz
             </Button>
           </div>
 
@@ -220,16 +220,16 @@ export default function ResultsPage() {
                 </div>
                 <h3 className="text-3xl md:text-4xl font-extrabold">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                    Aumenta tu Actividad Onchain
+                    Boost Your Onchain Activity
                   </span>
                 </h3>
               </div>
               
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Ya descubriste tu match crypto perfecto. Ahora es momento de{" "}
-                <span className="text-foreground font-semibold">actuar onchain</span> en Base.
+                You discovered your perfect crypto match. Now it's time to{" "}
+                <span className="text-foreground font-semibold">act onchain</span> on Base.
                 <br />
-                Explora apps verificadas, gratis y low-cost, para construir tu rastro onchain.
+                Explore verified apps, free and low-cost, to build your onchain footprint.
               </p>
               
               <div className="pt-4">
@@ -239,7 +239,7 @@ export default function ResultsPage() {
                     size="lg" 
                     className="h-14 px-10 text-lg font-bold rounded-full shadow-[0_0_30px_hsla(var(--primary)/0.4)] hover:shadow-[0_0_40px_hsla(var(--primary)/0.6)] hover:scale-105 transition-all duration-300"
                   >
-                    Explorar Base Onchain Hub
+                    Explore Base Onchain Hub
                     <ExternalLink className="ml-3 w-6 h-6" />
                   </Button>
                 </Link>
@@ -248,15 +248,15 @@ export default function ResultsPage() {
               <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <span className="text-green-400">✓</span>
-                  <span>Apps verificadas</span>
+                  <span>Verified Apps</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-green-400">✓</span>
-                  <span>Gratis y low-cost</span>
+                  <span>Free & Low-cost</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-green-400">✓</span>
-                  <span>Sin registros</span>
+                  <span>No Signups</span>
                 </div>
               </div>
             </CardContent>
@@ -267,19 +267,13 @@ export default function ResultsPage() {
             <CardContent className="p-10 space-y-8">
               <div className="flex items-center justify-center gap-3">
                 <TrendingUp className="h-7 w-7 text-secondary" />
-                <h3 className="text-2xl font-bold">Próximos Pasos</h3>
+                <h3 className="text-2xl font-bold">Next Steps</h3>
               </div>
               <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-                Domina tu estrategia. Aprende de expertos o profundiza por tu cuenta.
+                Master your strategy. Dive deeper and learn on your own.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-5 justify-center pt-2">
-                <Link href="/mentores">
-                  <Button variant="neon" size="lg" className="w-full sm:w-auto h-12">
-                    <Users className="h-4 w-4 mr-2" />
-                    Conseguir Mentor Experto
-                  </Button>
-                </Link>
+              <div className="flex justify-center pt-2">
                 <Link
                   href={
                     primaryResult?.area.id === "airdrops"
@@ -291,8 +285,8 @@ export default function ResultsPage() {
                       : "/estrategias"
                   }
                 >
-                  <Button variant="ghost-tech" size="lg" className="w-full sm:w-auto h-12">
-                    Aprender Más
+                  <Button variant="neon" size="lg" className="h-12 px-8">
+                    Learn More
                   </Button>
                 </Link>
               </div>

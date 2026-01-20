@@ -24,8 +24,8 @@ export function MultipleChoice({ options, value, onSelect }: MultipleChoiceProps
               "hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
               isSelected
-                ? "bg-primary/10 border-primary shadow-[0_0_20px_hsla(var(--primary)/0.3)]"
-                : "bg-card/50 border-white/10 hover:border-primary/30 hover:bg-card/70"
+                ? "bg-primary/10 border-primary shadow-[0_0_20px_hsla(var(--primary)/0.3)] text-foreground"
+                : "bg-card/50 border-border hover:border-primary/30 hover:bg-card/70 text-foreground dark:border-white/10"
             )}
           >
             <div className="flex items-start gap-4 w-full">
@@ -39,7 +39,7 @@ export function MultipleChoice({ options, value, onSelect }: MultipleChoiceProps
                 )}
               >
                 {isSelected && (
-                  <Check className="h-4 w-4 text-primary-foreground animate-in zoom-in duration-200" />
+                  <Check className="h-4 w-4 text-white animate-in zoom-in duration-200" />
                 )}
               </div>
               

@@ -21,11 +21,11 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
   const getRiskBadge = (risk: string) => {
     switch (risk) {
       case "low":
-        return <Badge variant="outline" className="border-green-500/50 text-green-500 bg-green-500/10">Riesgo Bajo</Badge>
+        return <Badge variant="outline" className="border-green-500/50 text-green-500 bg-green-500/10">Low Risk</Badge>
       case "medium":
-        return <Badge variant="outline" className="border-yellow-500/50 text-yellow-500 bg-yellow-500/10">Riesgo Medio</Badge>
+        return <Badge variant="outline" className="border-yellow-500/50 text-yellow-500 bg-yellow-500/10">Medium Risk</Badge>
       case "high":
-        return <Badge variant="outline" className="border-red-500/50 text-red-500 bg-red-500/10">Riesgo Alto</Badge>
+        return <Badge variant="outline" className="border-red-500/50 text-red-500 bg-red-500/10">High Risk</Badge>
       default:
         return null
     }
@@ -41,7 +41,7 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
     >
       {isPrimary && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
-          Mejor Opción
+          Best Match
         </div>
       )}
 
@@ -78,7 +78,7 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
         <div className="grid grid-cols-2 gap-3 p-4 rounded-xl bg-black/20 border border-white/5">
           <div className="space-y-1">
             <div className="flex items-center gap-1.5 text-muted-foreground text-xs uppercase tracking-wider">
-               <Clock className="w-3 h-3" /> Tiempo
+               <Clock className="w-3 h-3" /> Time
             </div>
             <div className="font-semibold text-sm">
                 {TIME_RANGES[area.id]?.[userLevel] || area.timeCommitment}
@@ -97,7 +97,7 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
         <div className="space-y-2 flex-1">
            <div className="flex items-center gap-2 text-primary text-sm font-semibold">
               <ShieldCheck className="w-4 h-4" />
-              <span>Por qué es para ti</span>
+              <span>Why It's For You</span>
            </div>
            <p className="text-sm text-foreground/80 leading-relaxed border-l-2 border-primary/30 pl-3">
               {area.detailedDescription}
@@ -125,7 +125,7 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
           onClick={(e) => e.stopPropagation()}
         >
           <Button variant={isPrimary ? "neon" : "ghost-tech"} className="w-full mt-2 group">
-            Ver Estrategia
+            View Strategy
             <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </Link>

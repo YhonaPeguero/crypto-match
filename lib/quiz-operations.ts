@@ -8,7 +8,7 @@ export async function saveQuizResults(
 ): Promise<void> {
   try {
     if (!isSupabaseConfigured || !supabase) {
-      console.warn("Supabase no está configurado. Omitiendo guardado de resultados del quiz.")
+      console.warn("Supabase is not configured. Skipping quiz results saving.")
       return
     }
 
@@ -41,10 +41,10 @@ export async function getQuizStats(): Promise<{
       return { totalResponses: 0, popularAreas: [] }
     }
 
-    // Obtener total de respuestas
+    // Get total responses
     const { count: totalResponses } = await supabase.from("quiz_responses").select("*", { count: "exact", head: true })
 
-    // Áreas populares (en un caso real requeriría agregaciones más complejas)
+    // Popular areas (in a real-world scenario, this might require more complex aggregation)
     const { data: responses } = await supabase.from("quiz_responses").select("recommendations").limit(100)
 
     const areaCounts: Record<string, number> = {}
