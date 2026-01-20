@@ -1,5 +1,6 @@
 "use client"
 
+import { ParticleButton } from "@/components/ui/particle-button"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Header } from "@/components/layout/header"
@@ -43,16 +44,15 @@ export function HomePageWrapper() {
             </h1>
 
             {/* CTAs - Well spaced and aligned */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-6 pt-8 justify-center items-center">
               <Link href="/quiz">
-                <Button 
+                <ParticleButton 
                   variant="blue-fire" 
-                  size="lg" 
-                  className="w-full sm:w-auto h-12 px-8 text-base font-bold rounded-full"
+                  className="w-full sm:w-auto h-14 px-10 text-lg rounded-2xl shadow-[0_0_30px_rgba(0,180,255,0.3)]"
                 >
                   Start Quiz
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </ParticleButton>
               </Link>
               
               {/* Trust signals - Centered */}
@@ -195,14 +195,13 @@ export function HomePageWrapper() {
             </p>
             <div className="pt-2">
               <Link href="/quiz">
-                <Button 
-                  variant="neon" 
-                  size="lg" 
-                  className="h-12 px-8 rounded-full text-base font-semibold shadow-[0_0_20px_hsla(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsla(var(--primary)/0.5)] hover:scale-105 transition-all duration-300"
+                <ParticleButton 
+                  variant="blue-fire" 
+                  className="w-full sm:w-auto h-14 px-10 text-lg rounded-2xl shadow-[0_0_30px_rgba(0,180,255,0.3)]"
                 >
                   Start Quiz Now
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </ParticleButton>
               </Link>
             </div>
             <div className="pt-2 opacity-70">
