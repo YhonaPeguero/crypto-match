@@ -34,9 +34,9 @@ export function MiniAppCard({ app, onAppClick }: MiniAppCardProps) {
   return (
     <Card
       className={cn(
-        "glass-card h-full flex flex-col transition-all duration-300 cursor-pointer group",
-        "hover:scale-[1.02] hover:shadow-xl hover:border-[#0052FF]/30 hover:shadow-[#0052FF]/10",
-        app.featured && "border-[#0052FF]/40 bg-[#0052FF]/5"
+        "glass-card h-full flex flex-col transition-all duration-500 cursor-pointer group",
+        "hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] hover:border-primary/40",
+        app.featured && "border-primary/30 bg-primary/5 shadow-[0_0_20px_rgba(34,211,238,0.1)]"
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -50,21 +50,21 @@ export function MiniAppCard({ app, onAppClick }: MiniAppCardProps) {
               {/* Logo placeholder */}
               <div className={cn(
                 "w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shrink-0",
-                "bg-gradient-to-br from-[#0052FF]/20 to-[#0066FF]/20 border border-[#0052FF]/20",
-                "group-hover:scale-110 group-hover:border-[#0052FF]/40 transition-all duration-300"
+                "bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/20",
+                "group-hover:scale-110 group-hover:border-primary/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300"
               )}>
                 {app.name.charAt(0).toUpperCase()}
               </div>
               
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl font-bold text-foreground truncate group-hover:text-[#0052FF] transition-colors duration-200">
+                <h3 className="text-xl font-bold text-foreground truncate group-hover:text-primary transition-colors duration-200">
                   {app.name}
                 </h3>
                 
                 {/* Twitter handle */}
                 <button
                   onClick={handleTwitterClick}
-                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-[#0052FF] transition-colors duration-200 mt-1"
+                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors duration-200 mt-1"
                 >
                   <Twitter className="w-3.5 h-3.5" />
                   <span className="truncate">{app.twitterHandle}</span>
@@ -81,7 +81,7 @@ export function MiniAppCard({ app, onAppClick }: MiniAppCardProps) {
               </Badge>
             )}
             {app.featured && (
-              <Badge className="bg-[#0052FF]/20 text-[#0052FF] border-[#0052FF]/30 text-xs font-semibold">
+              <Badge className="bg-primary/20 text-primary border-primary/30 text-[10px] font-bold uppercase tracking-wider">
                 ⭐ Featured
               </Badge>
             )}
@@ -120,8 +120,8 @@ export function MiniAppCard({ app, onAppClick }: MiniAppCardProps) {
 
         {/* CTA Button */}
         <Button
-          variant="neon"
-          className="w-full mt-2 group/btn bg-[#0052FF] hover:bg-[#0066FF] border-[#0052FF]/50 shadow-[0_0_15px_hsla(0,82%,51%,0.3)] hover:shadow-[0_0_20px_hsla(0,82%,51%,0.5)]"
+          variant="blue-fire"
+          className="w-full mt-2 group/btn h-11 rounded-xl"
           onClick={(e) => {
             e.stopPropagation()
             handleClick()

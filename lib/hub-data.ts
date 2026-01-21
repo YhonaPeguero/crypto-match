@@ -1,4 +1,4 @@
-export type MiniAppCategory = 'free' | 'low-cost' | 'social' | 'defi' | 'nft'
+export type MiniAppCategory = 'free' | 'social' | 'defi' | 'trading'
 
 export interface MiniApp {
   id: string
@@ -84,7 +84,7 @@ export const MINI_APPS: MiniApp[] = [
     description: 'Swaps and liquidity on Base. Leading DEX with low fees and high liquidity.',
     url: 'https://aerodrome.finance',
     twitterHandle: '@AerodromeFi',
-    category: 'defi',
+    category: 'trading',
     isGasless: false,
     tags: ['swap', 'liquidity', 'dex'],
     featured: true,
@@ -95,7 +95,7 @@ export const MINI_APPS: MiniApp[] = [
     description: 'Simple and secure swaps. The most popular DEX, now on Base.',
     url: 'https://app.uniswap.org/swap?chain=base',
     twitterHandle: '@Uniswap',
-    category: 'defi',
+    category: 'trading',
     isGasless: false,
     tags: ['swap', 'dex', 'trading'],
   },
@@ -155,7 +155,7 @@ export const MINI_APPS: MiniApp[] = [
     description: 'Optimized stable pools. Trade stablecoins with low slippage.',
     url: 'https://curve.fi/#/base/pools',
     twitterHandle: '@CurveFinance',
-    category: 'defi',
+    category: 'trading',
     isGasless: false,
     tags: ['stablecoins', 'pools', 'trading'],
   },
@@ -180,11 +180,6 @@ export const CATEGORIES: Record<MiniAppCategory, { label: string; color: string;
     color: 'hsl(142 76% 36%)',
     icon: '🎁',
   },
-  'low-cost': {
-    label: 'Low Cost',
-    color: 'hsl(38 92% 50%)',
-    icon: '💰',
-  },
   social: {
     label: 'Social',
     color: 'hsl(265 89% 66%)',
@@ -195,10 +190,10 @@ export const CATEGORIES: Record<MiniAppCategory, { label: string; color: string;
     color: 'hsl(200 100% 60%)',
     icon: '💎',
   },
-  nft: {
-    label: 'NFT',
-    color: 'hsl(340 75% 55%)',
-    icon: '🖼️',
+  trading: {
+    label: 'Trading',
+    color: 'hsl(217 100% 60%)',
+    icon: '📈',
   },
 }
 

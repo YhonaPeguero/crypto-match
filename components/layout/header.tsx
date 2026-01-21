@@ -50,14 +50,6 @@ export function Header() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <Link href="/hub">
-              <Button
-                variant="ghost-tech"
-                className="hidden sm:flex h-10 px-4 rounded-xl hover:bg-accent transition-all duration-200 hover:scale-105"
-              >
-                Hub
-              </Button>
-            </Link>
           </div>
         </div>
       </div>

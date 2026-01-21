@@ -1,11 +1,10 @@
 "use client"
 
 import { ParticleButton } from "@/components/ui/particle-button"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { HubSection } from "@/components/hub/hub-section"
 import { Header } from "@/components/layout/header"
 import { WavyBackground } from "@/components/ui/wavy-background"
-import { ArrowRight, Clock, Target, Zap, Shield, Sparkles, ExternalLink } from "lucide-react"
+import { ArrowRight, Clock, Shield } from "lucide-react"
 import Link from "next/link"
 import { Disclaimer } from "@/components/ui/disclaimer"
 
@@ -71,119 +70,10 @@ export function HomePageWrapper() {
           </div>
         </div>
 
-        {/* Feature Grid - Improved spacing */}
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-16">
-          <Card className="glass-card hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
-            <CardContent className="p-8 space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
-                <Target className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold">Personalized Results</h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Strategies tailored to your risk profile.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="glass-card hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
-            <CardContent className="p-8 space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
-                <Zap className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold">Quick & Easy</h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                No complex jargon. Just what you need.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="glass-card hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
-            <CardContent className="p-8 space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform duration-300">
-                <Shield className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold">100% Anonymous</h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Your privacy is sacred. No tracking.
-              </p>
-            </CardContent>
-          </Card>
+        {/* Base Onchain Hub Section - Integrated */}
+        <div className="mb-24">
+          <HubSection />
         </div>
-
-        {/* Base Onchain Hub Teaser - Subtle */}
-        <Card className="glass-panel border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-transparent mb-16 relative overflow-hidden group hover:border-primary/40 transition-all duration-300">
-          <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary via-transparent to-primary opacity-50 group-hover:opacity-100 transition-opacity"></div>
-          <CardContent className="p-8 md:p-10">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="space-y-5">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary">
-                    Base Onchain Hub
-                  </h2>
-                </div>
-                
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  Explore verified apps on Base. Free and low-cost to boost your onchain activity.
-                  <br />
-                  <span className="text-foreground font-medium">From discovery to action.</span>
-                </p>
-                
-                <div className="flex flex-wrap gap-4 pt-2 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <span className="text-green-400">✓</span>
-                    <span>15+ verified apps</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-green-400">✓</span>
-                    <span>Free & low-cost</span>
-                  </div>
-                </div>
-                
-                <div className="pt-2">
-                  <Link href="/hub">
-                    <Button 
-                      variant="ghost-tech" 
-                      size="lg" 
-                      className="h-11 px-6 text-sm font-medium rounded-full group/btn"
-                    >
-                      Explore Hub
-                      <ExternalLink className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-              
-              <div className="hidden md:block relative">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-secondary/10 blur-[40px] rounded-full opacity-50"></div>
-                <div className="relative grid grid-cols-2 gap-3">
-                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow">
-                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
-                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
-                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
-                  </div>
-                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow" style={{animationDelay: "0.5s"}}>
-                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
-                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
-                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
-                  </div>
-                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow" style={{animationDelay: "1s"}}>
-                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
-                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
-                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
-                  </div>
-                  <div className="glass-card p-3 rounded-lg border-primary/10 animate-pulse-slow" style={{animationDelay: "1.5s"}}>
-                    <div className="w-6 h-6 rounded bg-primary/20 mb-2"></div>
-                    <div className="h-2 bg-primary/10 rounded w-3/4 mb-1"></div>
-                    <div className="h-2 bg-primary/5 rounded w-1/2"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Final CTA - Clean */}
         <div className="relative rounded-2xl p-1 overflow-hidden">
