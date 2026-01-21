@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Search, Gift, Users, Coins, TrendingUp, Grid3x3 } from "lucide-react"
-import { MINI_APPS, getAppsByCategory, searchApps, type MiniAppCategory } from "@/lib/hub-data"
+import { MINI_APPS, CATEGORIES, getAppsByCategory, searchApps, type MiniAppCategory } from "@/lib/hub-data"
 import { addAppExplored } from "@/lib/hub-storage"
 import { cn } from "@/lib/utils"
 
@@ -85,20 +85,36 @@ export function HubSection() {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2">
-          {categories.map((category) => (
+          {categories.map((category) => {
+            const isSelected = selectedCategory === category.id
+            // Get color from CATEGORIES constants, implicit mapping via ID
+            const color = category.id === 'all' 
+              ? 'hsl(190 100% 50%)' // Default cyan for ALL
+              : CATEGORIES[category.id as MiniAppCategory]?.color
+
+            return (
             <Button
               key={category.id}
-              variant={selectedCategory === category.id ? "blue-fire" : "ghost-tech"}
+              variant="ghost" 
               onClick={() => setSelectedCategory(category.id)}
               className={cn(
-                "h-12 px-4 rounded-xl text-sm transition-all duration-300",
-                selectedCategory === category.id && "scale-105"
+                "h-11 px-5 rounded-full text-sm font-semibold transition-all duration-300 border",
+                isSelected 
+                  ? "text-black font-bold shadow-[0_0_20px_-5px_var(--btn-color)] scale-105 border-transparent hover:scale-110 hover:shadow-[0_0_25px_-5px_var(--btn-color)]" // Active State
+                  : "bg-black/20 text-muted-foreground border-white/5 hover:border-[var(--btn-color)] hover:text-[var(--btn-color)] hover:bg-[var(--btn-color)]/10" // Inactive State
               )}
+              style={{
+                background: isSelected ? `linear-gradient(135deg, ${color}, white)` : undefined, 
+                '--btn-color': color 
+              } as React.CSSProperties}
             >
-              <span className="mr-2">{category.icon}</span>
-              {category.label}
+              <span className={cn("mr-2 text-lg", isSelected ? "grayscale-0 text-black" : "grayscale opacity-70")}>
+                {category.icon}
+              </span>
+              <span className={cn(isSelected && "text-black")}>{category.label}</span>
             </Button>
-          ))}
+            )
+          })}
         </div>
       </div>
 

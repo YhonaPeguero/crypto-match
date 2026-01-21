@@ -46,8 +46,7 @@ export function HomePageWrapper() {
             <div className="flex flex-col sm:flex-row gap-6 pt-8 justify-center items-center">
               <Link href="/quiz">
                 <ParticleButton 
-                  variant="blue-fire" 
-                  className="w-full sm:w-auto h-14 px-10 text-lg rounded-2xl shadow-[0_0_30px_rgba(0,180,255,0.3)]"
+                  className="w-full sm:w-auto h-14 px-10 text-lg rounded-full btn-crypto-premium"
                 >
                   Start Quiz
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -86,8 +85,7 @@ export function HomePageWrapper() {
             <div className="pt-2">
               <Link href="/quiz">
                 <ParticleButton 
-                  variant="blue-fire" 
-                  className="w-full sm:w-auto h-14 px-10 text-lg rounded-2xl shadow-[0_0_30px_rgba(0,180,255,0.3)]"
+                  className="w-full sm:w-auto h-14 px-10 text-lg rounded-full btn-crypto-premium"
                 >
                   Start Quiz Now
                   <ArrowRight className="ml-2 h-5 w-5" />
