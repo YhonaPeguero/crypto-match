@@ -5,7 +5,7 @@ import { MiniAppCard } from "@/components/hub/mini-app-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { Search, Sparkles, Gift, Users, Coins, TrendingUp, Grid3x3 } from "lucide-react"
+import { Search, Gift, Users, Coins, TrendingUp, Grid3x3 } from "lucide-react"
 import { MINI_APPS, getAppsByCategory, searchApps, type MiniAppCategory } from "@/lib/hub-data"
 import { addAppExplored } from "@/lib/hub-storage"
 import { cn } from "@/lib/utils"
@@ -48,10 +48,10 @@ export function HubSection() {
 
   const categories: Array<{ id: MiniAppCategory | 'all'; label: string; icon: React.ReactNode }> = [
     { id: 'all', label: 'All', icon: categoryIcons['all'] },
-    { id: 'free', label: 'Free', icon: categoryIcons['free'] },
-    { id: 'social', label: 'Social', icon: categoryIcons['social'] },
-    { id: 'defi', label: 'DeFi', icon: categoryIcons['defi'] },
     { id: 'trading', label: 'Trading', icon: categoryIcons['trading'] },
+    { id: 'free', label: 'Free', icon: categoryIcons['free'] },
+    { id: 'defi', label: 'DeFi', icon: categoryIcons['defi'] },
+    { id: 'social', label: 'Social', icon: categoryIcons['social'] },
   ]
 
   return (
@@ -59,15 +59,11 @@ export function HubSection() {
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-[10px] font-bold tracking-wider uppercase">
-            <Sparkles className="w-3 h-3" />
-            <span>Base Onchain Hub</span>
-          </div>
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-            Explore <span className="text-blue-fire">Verified Apps</span>
+            Explore <span className="text-blue-fire"> Apps in Base</span>
           </h2>
           <p className="text-muted-foreground max-w-xl">
-            Boost your onchain activity with these hand-picked, verified applications on Base.
+            Boost your onchain activity with these hand-picked,onchain applications on Base.
           </p>
         </div>
 

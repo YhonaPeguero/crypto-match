@@ -229,7 +229,7 @@ export default function ResultsPage() {
                 You discovered your perfect crypto match. Now it's time to{" "}
                 <span className="text-foreground font-semibold">act onchain</span> on Base.
                 <br />
-                Explore verified apps, free and low-cost, to build your onchain footprint.
+                Explore apps free to build your onchain footprint.
               </p>
               
               <div className="pt-4">

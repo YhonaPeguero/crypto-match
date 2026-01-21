@@ -133,7 +133,7 @@
 
 **Hub Teaser**:
 - "Base Onchain Hub"
-- "Explore verified apps on Base. Free and low-cost to boost your onchain activity."
+- "Explore apps onchain on Base. Free and low-cost to boost your onchain activity."
 
 **Quiz**:
 - "Question X of Y"

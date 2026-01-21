@@ -120,15 +120,16 @@ export function MiniAppCard({ app, onAppClick }: MiniAppCardProps) {
 
         {/* CTA Button */}
         <Button
-          variant="blue-fire"
-          className="w-full mt-2 group/btn h-11 rounded-xl"
+          className="w-full mt-2 btn-premium-fire h-11 rounded-xl group/btn"
           onClick={(e) => {
             e.stopPropagation()
             handleClick()
           }}
         >
-          Open App
-          <ExternalLink className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            Open App
+            <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
+          </span>
         </Button>
       </CardContent>
     </Card>

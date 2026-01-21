@@ -10,7 +10,7 @@ export function generateMetadata(language: Language = 'en'): Metadata {
       default: "BaseMatch - Find Your Perfect Base Strategy Match",
       template: "%s | BaseMatch",
     },
-    description: "Discover your ideal crypto strategy in 2 minutes. Anonymous. Free. Explore verified apps on Base to boost your onchain activity.",
+    description: "Discover your ideal crypto strategy in 2 minutes. Anonymous. Free. Explore apps onchain on Base to boost your onchain activity.",
     keywords: ["base", "base blockchain", "crypto quiz", "bitcoin", "ethereum", "defi", "trading", "onchain", "base apps"],
     authors: [{ name: "BaseMatch Team" }],
     creator: "BaseMatch",
@@ -29,7 +29,7 @@ export function generateMetadata(language: Language = 'en'): Metadata {
       locale: "en_US",
       url: "https://basematch.vercel.app",
       title: "BaseMatch - Find Your Perfect Base Strategy Match",
-      description: "Discover your ideal crypto strategy in 2 minutes. Anonymous. Free. Explore verified apps on Base.",
+      description: "Discover your ideal crypto strategy in 2 minutes. Anonymous. Free. Explore apps onchain on Base.",
       siteName: "BaseMatch",
       images: [
         {
@@ -43,7 +43,7 @@ export function generateMetadata(language: Language = 'en'): Metadata {
     twitter: {
       card: "summary_large_image",
       title: "BaseMatch - Find Your Perfect Base Strategy Match",
-      description: "Discover your ideal crypto strategy in 2 minutes. Anonymous. Free. Explore verified apps on Base.",
+      description: "Discover your ideal crypto strategy in 2 minutes. Anonymous. Free. Explore apps onchain on Base.",
       images: ["https://i.ibb.co/8Dq1NPv6/preview-social.jpg"],
       creator: "@basematch",
     },
